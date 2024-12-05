@@ -28,9 +28,9 @@ export default function Home() {
 
   const fetchTeams = async () => {
     const res = await fetch("/api/teams");
-    const data = await res.json();
-    console.log("Teams :", data);
-    setTeams(data);
+    const dataTeams = await res.json();
+    // console.log("Teams :", data);
+    setTeams(dataTeams);
   };
 
   useEffect(() => {
@@ -39,9 +39,9 @@ export default function Home() {
 
   const fetchMatches = async () => {
     const res = await fetch("/api/matches");
-    const data = await res.json();
-    console.log("Matches :", data);
-    setMatches(data);
+    const dataMatches = await res.json();
+    // console.log("Matches :", data);
+    setMatches(dataMatches);
   };
 
   useEffect(() => {
