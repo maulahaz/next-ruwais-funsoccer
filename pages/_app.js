@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
       />
       <meta name="description" content="Piala Dunia" />
       <meta name="keywords" content="worldcup" />
-      <title>Update Piala Dunia - Realtime</title>
+      <title>Ruwais Fun Football</title>
 
       <link rel="manifest" href="/manifest.json" />
       <link
