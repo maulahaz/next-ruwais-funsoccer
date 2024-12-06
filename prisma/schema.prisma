@@ -26,7 +26,7 @@ model Match {
   id                Int @id @default(autoincrement()) // Auto increment ID
   venue             String? //--[Ruwais-2, Ruwais-3]
   location          String? //--[Abu Dhabi, Dubai]
-  status            String //--[completed, future, live]
+  status            String //--[completed, future, live, Latest]. Latest is latest from the completed matches
   stage_name        String?  //--[Final, Quarter, ...]
   attendance        Int?
   datetime          DateTime  //--[Match Date Time]
