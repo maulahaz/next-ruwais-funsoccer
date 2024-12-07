@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
       />
       <meta name="description" content="Piala Dunia" />
       <meta name="keywords" content="worldcup" />
-      <title>Ruwais Fun Football</title>
+      <title>Ruwais Gibol</title>
 
       <link rel="manifest" href="/manifest.json" />
       <link

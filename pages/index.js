@@ -1,17 +1,16 @@
 import useWorldcupJson from "../hooks/useWorldcupJson";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import relativeTime from "dayjs/plugin/relativeTime";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 dayjs.extend(utc);
-dayjs.extend(timezone);
 
 const getDay = (datetime) => {
   return dayjs(datetime).isToday()
@@ -86,27 +85,35 @@ export default function Home() {
   return (
     <div className="bg-black w-full min-h-screen h-full px-6">
       <div className="text-center p-8 space-y-4">
-        <h1 className="text-6xl font-bold tracking-wide">
-          Ruwais Gibol
-        </h1>
-        <p className="text-xl">
-          Ruwais Fun Football Winter 2024
-        </p>
+        <h1 className="text-6xl font-bold tracking-wide">Ruwais Gibol</h1>
+        <p className="text-xl">Ruwais Fun Football Winter 2024</p>
         <div className="flex justify-center space-x-4 mt-4">
-          <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">Schedule </button>
-          <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">Table </button>
-          <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">Top Scorer </button>
-          
+          <Link href="/schedule">
+            <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
+              Schedule
+            </button>
+          </Link>
+          <Link href="/league-table">
+            <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
+              Table
+            </button>
+          </Link>
+          <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
+            Top Scorer
+          </button>
         </div>
       </div>
-
 
       {latestMatch ? (
         <div className="flex justify-center w-full">
           <div className="max-w-[550px] w-full border border-dashed rounded-lg p-6">
-            <h2 className="text-2xl pb-4">{latestMatch.status === "live" ? "Live match" : "Latest match"}</h2>
+            <h2 className="text-2xl pb-4">
+              {latestMatch.status === "live" ? "Live match" : "Latest match"}
+            </h2>
             <div className="flex justify-between text-sm text-gray-400 -mt-2 mb-2">
-              <p className="inline-block">{dayjs(latestMatch.datetime).utc().format("DD-MMM-YY")}.</p>
+              <p className="inline-block">
+                {dayjs(latestMatch.datetime).utc().format("DD-MMM-YY")}.
+              </p>
               <p className="inline-block">Venue: {latestMatch.venue}.</p>
               <p className="inline-block">
                 Attendance: {latestMatch.attendance + " person" || "TBA"}
@@ -114,7 +121,10 @@ export default function Home() {
             </div>
             <div className="flex justify-between items-center gap-4">
               <div className="text-center space-y-4">
-                <img src={`/flags/${latestMatch.home_team}.png`} className="w-28 object-cover" />
+                <img
+                  src={`/flags/${latestMatch.home_team}.png`}
+                  className="w-28 object-cover"
+                />
                 <h3 className="text-lg">{latestMatch.home_team} </h3>
               </div>
               <div className="text-center">
@@ -134,7 +144,10 @@ export default function Home() {
                 </div>
               </div>
               <div className="text-center space-y-4">
-                <img src={`/flags/${latestMatch.away_team}.png`} className="w-28 object-cover" />
+                <img
+                  src={`/flags/${latestMatch.away_team}.png`}
+                  className="w-28 object-cover"
+                />
                 <h3 className="text-lg">{latestMatch.away_team}</h3>
               </div>
             </div>
