@@ -1,49 +1,49 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { supabase } from "../../lib/supabase";
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const teams = await prisma.team.findMany({
-        select: {
-          id: true,
-          name: true,
-          team_code: true,
-          goals: true,
-          penalties: true,
-        },
-        orderBy: [
-          { goals: 'desc' },
-          { penalties: 'desc' },
-        ],
-      });
+      // Fetch teams
+      const { data: teams, error: teamsError } = await supabase
+        .from('teams')
+        .select('id, name, team_code')
 
-      const matches = await prisma.match.findMany({
-        where: {
-          status: 'completed',
-        },
-        select: {
-          home_team: true,
-          away_team: true,
-          home_team_goals: true,
-          away_team_goals: true,
-          winner: true,
-        },
-      });
+      if (teamsError) throw teamsError
+
+      // Fetch matches
+      const { data: matches, error: matchesError } = await supabase
+        .from('matches')
+        .select('home_team_id, away_team_id, home_team_goals, away_team_goals, status')
+        .eq('status', 'completed')
+
+      if (matchesError) throw matchesError
 
       const leagueTable = teams.map(team => {
         const teamMatches = matches.filter(match => 
-          match.home_team === team.team_code || match.away_team === team.team_code
-        );
+          match.home_team_id === team.id || match.away_team_id === team.id
+        )
 
-        const wins = teamMatches.filter(match => match.winner === team.team_code).length;
+        const wins = teamMatches.filter(match => 
+          (match.home_team_id === team.id && match.home_team_goals > match.away_team_goals) ||
+          (match.away_team_id === team.id && match.away_team_goals > match.home_team_goals)
+        ).length
+
+        const draws = teamMatches.filter(match => 
+          match.home_team_goals === match.away_team_goals
+        ).length
+
         const losses = teamMatches.filter(match => 
-          match.winner && match.winner !== team.team_code
-        ).length;
-        const draws = teamMatches.filter(match => !match.winner).length;
+          (match.home_team_id === team.id && match.home_team_goals < match.away_team_goals) ||
+          (match.away_team_id === team.id && match.away_team_goals < match.home_team_goals)
+        ).length
 
-        const points = wins * 3 + draws;
+        const goalsFor = teamMatches.reduce((total, match) => 
+          total + (match.home_team_id === team.id ? match.home_team_goals : match.away_team_goals), 0
+        )
+
+        const goalsAgainst = teamMatches.reduce((total, match) => 
+          total + (match.home_team_id === team.id ? match.away_team_goals : match.home_team_goals), 0
+        )
 
         return {
           ...team,
@@ -51,18 +51,23 @@ export default async function handler(req, res) {
           wins,
           draws,
           losses,
-          points,
-        };
-      });
+          goals_for: goalsFor,
+          goals_against: goalsAgainst,
+          goal_difference: goalsFor - goalsAgainst,
+          points: wins * 3 + draws
+        }
+      })
 
-      leagueTable.sort((a, b) => b.points - a.points || b.goals - a.goals);
+      leagueTable.sort((a, b) => b.points - a.points || b.goal_difference - a.goal_difference)
 
-      res.status(200).json(leagueTable);
+      res.status(200).json(leagueTable)
     } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch league table data' });
+      console.error('Error fetching league table data:', error)
+      res.status(500).json({ error: 'Failed to fetch league table data' })
     }
   } else {
-    res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.setHeader('Allow', ['GET'])
+    res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 }
+

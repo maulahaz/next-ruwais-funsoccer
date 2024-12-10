@@ -10,21 +10,37 @@ export default function Schedule() {
   const [scheduleData, setScheduleData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchScheduleData = async () => {
-      try {
-        const response = await fetch("/api/schedule");
-        const data = await response.json();
-        setScheduleData(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Failed to fetch schedule data:", error);
-        setIsLoading(false);
-      }
-    };
+  const fetchScheduleData = async () => {
+    const data = await fetch("/api/matches");
+    const dataJson = await data.json();
+    console.log("All Matches :", dataJson);
+    console.log(
+      "All Matches data structure:",
+      JSON.stringify(dataJson[0], null, 2)
+    );
+    setScheduleData(dataJson);
+    setIsLoading(false);
+  };
 
+  useEffect(() => {
     fetchScheduleData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchScheduleData = async () => {
+  //     try {
+  //       const response = await fetch("/api/schedule");
+  //       const data = await response.json();
+  //       setScheduleData(data);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error("Failed to fetch schedule data:", error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchScheduleData();
+  // }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -52,17 +68,17 @@ export default function Schedule() {
             </thead>
             <tbody>
               {scheduleData
-                .sort((b, a) => dayjs(a.datetime).diff(dayjs(b.datetime)))
+                .sort((b, a) => dayjs(a.match_datetime).diff(dayjs(b.match_datetime)))
                 .map((match, index) => (
                   <tr
                     key={match.id}
                     className={index % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
                   >
                     <td className="px-4 py-2 text-center">
-                      {dayjs(match.datetime).utc().format("DD MMM YYYY HH:mm")}
+                      {dayjs(match.match_datetime).utc().format("DD MMM YYYY HH:mm")}
                     </td>
                     <td className="px-4 py-2 text-center">
-                      {match.home_team} vs {match.away_team}
+                      {match.home_team.name} vs {match.away_team.name}
                     </td>
                     <td className="px-4 py-2 text-center">
                       {match.stage_name || "N/A"}

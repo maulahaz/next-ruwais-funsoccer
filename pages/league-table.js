@@ -44,6 +44,7 @@ export default function LeagueTable() {
                 <th className="px-4 py-2">Drawn</th>
                 <th className="px-4 py-2">Lost</th>
                 <th className="px-4 py-2">GF</th>
+                <th className="px-4 py-2">GD</th>
                 <th className="px-4 py-2">Points</th>
               </tr>
             </thead>
@@ -56,7 +57,8 @@ export default function LeagueTable() {
                   <td className="px-4 py-2 text-center">{team.wins}</td>
                   <td className="px-4 py-2 text-center">{team.draws}</td>
                   <td className="px-4 py-2 text-center">{team.losses}</td>
-                  <td className="px-4 py-2 text-center">{team.goals}</td>
+                  <td className="px-4 py-2 text-center">{team.goals_for}</td>
+                  <td className="px-4 py-2 text-center">{team.goals_difference}</td>
                   <td className="px-4 py-2 text-center font-bold">{team.points}</td>
                 </tr>
               ))}

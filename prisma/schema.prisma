@@ -1,41 +1,62 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+//--This is your Prisma schema file,
+//--learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Team {
-  id              String @id @default(cuid()) // Primary Key, using random String UID
-  name            String
-  team_code       String?
-  captain         String?
-  description     String?
-  goals           Int @default(0)
-  penalties       Int @default(0)
-  updated_at      DateTime @updatedAt @default(now())
-  created_at      DateTime @default(now()) 
+  id          Int       @id @default(autoincrement())
+  name        String
+  teamAlias   String?   @db.VarChar(50)
+  teamCode    String?   @db.VarChar(50)
+  captain     String
+  motto       String    @db.VarChar(255)
+  flagUrl     String?   @db.VarChar(255)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  matchesHome Match[]   @relation("HomeTeam")
+  matchesAway Match[]   @relation("AwayTeam")
+  players     Player[]
 }
 
 model Match {
-  id                Int @id @default(autoincrement()) // Auto increment ID
-  venue             String? //--[Ruwais-2, Ruwais-3]
-  location          String? //--[Abu Dhabi, Dubai]
-  status            String //--[completed, future, live, Latest]. Latest is latest from the completed matches
-  stage_name        String?  //--[Final, Quarter, ...]
-  attendance        Int?
-  datetime          DateTime  //--[Match Date Time]
-  home_team         String? //--[Team-ID: 1, 2, 3,...]
-  home_team_goals   Int? //--[1, 2, 3,...]
-  away_team         String? //--[Team-ID: 1, 2, 3,...]
-  away_team_goals   Int? //--[1, 2, 3,...]
-  winner            String?  //--[TeamID: Team-A, Team-Gen]
-  winner_id         String? //--[Team-Code: 1, 2, 3,...]
-  updated_at        DateTime @updatedAt
-  created_at        DateTime @default(now())  
+  id             Int       @id @default(autoincrement())
+  matchDatetime  DateTime
+  homeTeamId     Int
+  awayTeamId     Int
+  stageName      String    @db.VarChar(100)
+  season         String    @db.VarChar(100)
+  venue          String    @db.VarChar(255)
+  homeTeamGoals  Int       @default(0)
+  awayTeamGoals  Int       @default(0)
+  status         String?   @db.VarChar(50)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt @default(now())
+
+  //--Relationships
+  homeTeam       Team      @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeam       Team      @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  players        Player[]  @relation("MatchPlayers")
+}
+
+model Player {
+  id          Int       @id @default(autoincrement())
+  name        String
+  teamId      Int
+  goalsScored Int       @default(0)
+  yellowCard  Int       @default(0)
+  redCard     Int       @default(0)
+  matchId     Int?      
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt @default(now())
+
+  //--Relationships
+  team        Team      @relation(fields: [teamId], references: [id])
+  match       Match?    @relation("MatchPlayers", fields: [matchId], references: [id])
 }

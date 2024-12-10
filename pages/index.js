@@ -1,11 +1,11 @@
+import { useState, useEffect, useMemo } from "react";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import relativeTime from "dayjs/plugin/relativeTime";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
-import { useState, useEffect } from "react";
 import Link from "next/link";
-// import useWorldcupJson from "../hooks/useWorldcupJson";
+import { supabase } from "../lib/supabase";
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
@@ -21,59 +21,52 @@ const getDay = (datetime) => {
 };
 
 export default function Home() {
-  // const [currentMatch, nextMatch, completedMatch, hasLiveMatch, error] = useWorldcupJson();
-  // const [maxCompletedMatch, setMaxCompletedMatch] = useState(4);
   const [teams, setTeams] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // const prefixImgUrl = "https://api.fifa.com/api/v3/picture/flags-sq-3/";
-  const baseUrl = "localhost:3000/";
-  const prefixImgUrl = baseUrl + "public/flags/";
+  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+  const prefixImgUrl = process.env.BASE_URL + "public/flags/";
+
+  const fetchTeams = async () => {
+    const { data, error } = await supabase.from("teams").select("*");
+
+    if (error) console.error("Error fetching teams:", error);
+    else {
+      // console.log("Teams :", data);
+      // console.log("Teams data structure:", JSON.stringify(data[0], null, 2));
+      setTeams(data);
+    }
+    setIsLoading(false);
+  };
+
+  const fetchMatches = async () => {
+    const data = await fetch("/api/matches");
+    const dataJson = await data.json();
+    console.log("All Matches :", dataJson);
+    console.log(
+      "All Matches data structure:",
+      JSON.stringify(dataJson[0], null, 2)
+    );
+    setMatches(dataJson);
+    setIsLoading(false);
+  };
 
   //--Latest Match can be Live match if any, or Latest from the Completed matches
   const latestMatch =
-    matches.find((match) => match.status === "live") ||
+    matches.find((match) => match.status === "Live") ||
     matches
-      .filter((match) => match.status === "completed")
+      .filter((match) => match.status === "Completed")
       .sort(
-        (a, b) => dayjs(b.datetime).valueOf() - dayjs(a.datetime).valueOf()
+        (a, b) =>
+          dayjs(b.match_datetime).valueOf() - dayjs(a.match_datetime).valueOf()
       )[0];
-
-  const fetchTeams = async () => {
-    const res = await fetch("/api/teams");
-    const dataTeams = await res.json();
-    // console.log("Teams :", dataTeams);
-    setTeams(dataTeams);
-  };
-
-  useEffect(() => {
-    fetchTeams();
-  }, []);
-
-  const fetchMatches = async () => {
-    const res = await fetch("/api/matches");
-    const dataMatches = await res.json();
-    console.log("Matches :", dataMatches);
-    console.log(
-      "Matches data structure:",
-      JSON.stringify(dataMatches[0], null, 2)
-    );
-    setMatches(dataMatches);
-  };
 
   useEffect(() => {
     fetchMatches();
+    fetchTeams();
   }, []);
 
-  // if (error) {
-  //   return (
-  //     <div className="bg-black h-screen w-screen flex items-center justify-center">
-  //       <p>Failed loading the data.</p>
-  //     </div>
-  //   );
-  // }
-
-  // if (!currentMatch) {
   if (!matches.length) {
     return (
       <div className="bg-black h-screen w-screen flex items-center justify-center">
@@ -108,24 +101,21 @@ export default function Home() {
         <div className="flex justify-center w-full">
           <div className="max-w-[550px] w-full border border-dashed rounded-lg p-6">
             <h2 className="text-2xl pb-4">
-              {latestMatch.status === "live" ? "Live match" : "Latest match"}
+              {latestMatch.status === "Live" ? "Live match" : "Latest match"}
             </h2>
             <div className="flex justify-between text-sm text-gray-400 -mt-2 mb-2">
               <p className="inline-block">
-                {dayjs(latestMatch.datetime).utc().format("DD-MMM-YY")}.
+                {dayjs(latestMatch.match_datetime).utc().format("DD-MMM-YY")}
               </p>
               <p className="inline-block">Venue: {latestMatch.venue}.</p>
-              <p className="inline-block">
-                Attendance: {latestMatch.attendance + " person" || "TBA"}
-              </p>
             </div>
             <div className="flex justify-between items-center gap-4">
               <div className="text-center space-y-4">
                 <img
-                  src={`/flags/${latestMatch.home_team}.png`}
+                  src={`/flags/${latestMatch.home_team.name}.png`}
                   className="w-28 object-cover"
                 />
-                <h3 className="text-lg">{latestMatch.home_team} </h3>
+                <h3 className="text-lg">{latestMatch.home_team.name} </h3>
               </div>
               <div className="text-center">
                 <h3 className="space-x-2 text-4xl font-bold">
@@ -136,38 +126,49 @@ export default function Home() {
                 <div>
                   {/* {latestMatch.winner}{" "}
                   {latestMatch.winner !== "Draw" && "Wins"} */}
-                  {latestMatch.status !== "completed"
+                  {latestMatch.status !== "Completed"
                     ? "Live"
-                    : `${latestMatch.winner} ${
-                        latestMatch.winner !== "Draw" ? "Wins" : ""
-                      }`}
+                    : latestMatch.home_team_goals > latestMatch.away_team_goals
+                    ? `${latestMatch.home_team.name} Wins`
+                    : latestMatch.home_team_goals < latestMatch.away_team_goals
+                    ? `${latestMatch.away_team.name} Wins`
+                    : "Draw"}
                 </div>
               </div>
               <div className="text-center space-y-4">
                 <img
-                  src={`/flags/${latestMatch.away_team}.png`}
+                  src={`/flags/${latestMatch.away_team.name}.png`}
                   className="w-28 object-cover"
                 />
-                <h3 className="text-lg">{latestMatch.away_team}</h3>
+                <h3 className="text-lg">{latestMatch.away_team.name}</h3>
               </div>
+              {/* -- Add Link to All matches */}
             </div>
+            <div className="mt-4 text-right">
+              <Link href="/schedule">
+                <a className="text-sm text-blue-400 hover:text-blue-300 transition duration-300">
+                  All Matches
+                </a>
+              </Link>
+            </div>
+
           </div>
         </div>
       ) : (
         <div className="flex justify-center w-full">
           <div className="max-w-[550px] w-full border border-dashed rounded-lg p-6">
-            <h2 className="text-2xl pb-4">No Live Matches</h2>
+            <h2 className="text-2xl pb-4">Match not available</h2>
           </div>
         </div>
       )}
       {/* Incoming Match */}
-      {matches.filter((match) => match.status === "future").length > 0 && (
+      {matches.filter((match) => match.status === "Future").length > 0 && (
         <div className="flex justify-center w-full mt-8">
           <div className="max-w-[550px] w-full border border rounded-lg p-6 bg-neutral-900">
             <h2 className="text-2xl pb-4">Upcoming Match</h2>
             {(() => {
               const nextMatch = matches
-                .filter((match) => match.status === "future")
+                .filter((match) => match.status === "Future")
                 .sort(
                   (b, a) =>
                     dayjs(a.datetime).valueOf() - dayjs(b.datetime).valueOf()
@@ -176,8 +177,8 @@ export default function Home() {
               return (
                 <div>
                   <div className="flex justify-between text-sm text-gray-400 mb-4">
-                    <p>Date: 
-                      {dayjs(nextMatch.datetime)
+                    <p>
+                      {dayjs(nextMatch.match_datetime)
                         .utc()
                         .format("DD-MMM-YY HH:mm")}
                     </p>
@@ -186,25 +187,25 @@ export default function Home() {
                   <div className="flex justify-between items-center gap-4">
                     <div className="text-center space-y-4">
                       <img
-                        src={`/flags/${nextMatch.home_team}.png`}
+                        src={`/flags/${nextMatch.home_team.name}.png`}
                         className="w-28 object-cover"
                         alt={nextMatch.home_team}
                       />
-                      <h3 className="text-lg">{nextMatch.home_team}</h3>
+                      <h3 className="text-lg">{nextMatch.home_team.name}</h3>
                     </div>
                     <div className="text-center">
                       <h3 className="text-2xl font-bold">VS</h3>
                       <p className="text-sm mt-2">
-                        {dayjs(nextMatch.datetime).fromNow()}
+                        {dayjs(nextMatch.match_datetime).fromNow()}
                       </p>
                     </div>
                     <div className="text-center space-y-4">
                       <img
-                        src={`/flags/${nextMatch.away_team}.png`}
+                        src={`/flags/${nextMatch.away_team.name}.png`}
                         className="w-28 object-cover"
                         alt={nextMatch.away_team}
                       />
-                      <h3 className="text-lg">{nextMatch.away_team}</h3>
+                      <h3 className="text-lg">{nextMatch.away_team.name}</h3>
                     </div>
                   </div>
                 </div>
@@ -213,117 +214,6 @@ export default function Home() {
           </div>
         </div>
       )}
-
-      {/* <div className="py-8">
-        <div className="max-w-[550px] mx-auto w-full">
-          <h2 className="text-3xl">Future Match</h2>
-          <div className="py-4">
-            <ul className="space-y-4">
-              {matches
-                .filter((item) => item.status === "future")
-                .sort(
-                  (a, b) =>
-                    dayjs(a.datetime).valueOf() - dayjs(b.datetime).valueOf()
-                )
-                .slice(0, 4)
-                .map((item) => (
-                  <li key={item.id} className="flex gap-4">
-                    <div className="w-4">
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-                      <div className="h-full px-1 pb-3 pt-1">
-                        <span className="block w-[4px] opacity-50 bg-amber-50 h-full"></span>
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-amber-400 text-sm">
-                        {dayjs(item.datetime).utc().format("DD-MMM-YY HH:mm")}
-                      </p>
-                      <div className="py-2">
-                        <h3 className="font-light text-xl">
-                          {item.home_team} vs {item.away_team}
-                        </h3>
-                        <p className="opacity-75">
-                          Coming up {dayjs(item.datetime).fromNow()}
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </div>
-      </div> */}
-
-      {/* <div className="py-8">
-        <div className="max-w-[550px] mx-auto w-full">
-          <h2 className="text-3xl">Completed Match</h2>
-          <div className="py-4">
-            <ul className="space-y-4">
-              {matches
-                .filter((item) => item.status === "completed")
-                .reverse()
-                .slice(0, maxCompletedMatch)
-                .map((item, index) => {
-                  console.log("Match item:", item);
-                  return (
-                    <li key={item.id} className="flex gap-4">
-                      <div className="w-4">
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-                        {index !== maxCompletedMatch - 1 && (
-                          <div className="h-full px-1 pb-3 pt-1">
-                            <span className="block w-[4px] opacity-50 bg-amber-50 h-full"></span>
-                          </div>
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-amber-400 text-sm">
-                          {dayjs(item.datetime).utc().format("DD-MMM-YY HH:mm")}
-                        </p>
-                        <div className="py-2">
-                          <h3 className="font-light text-xl space-x-2">
-                            <span>
-                              {item.home_team} -vs- {item.away_team},{" "}
-                            </span>
-                            <span className="font-bold text-amber-400">
-                              {item.home_team.goals ?? 0} :{" "}
-                              {item.away_team.goals ?? 0}
-                            </span>
-                          </h3>
-                          <p>
-                            Result: {item.winner}{" "}
-                            {item.winner !== "Draw" && "Wins"}
-                          </p>
-                          <p className="opacity-75">
-                            {dayjs(item.datetime).fromNow()}
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ul>
-            {maxCompletedMatch == 4 ? (
-              <div className="w-full flex justify-center p-2">
-                <button
-                  onClick={() => setMaxCompletedMatch(matches.length)}
-                  className="text-sm px-6 py-2 border rounded-full"
-                >
-                  Show more
-                </button>
-              </div>
-            ) : (
-              <div className="w-full flex justify-center p-2">
-                <button
-                  onClick={() => setMaxCompletedMatch(4)}
-                  className="text-sm px-6 py-2 border rounded-full"
-                >
-                  Show less
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

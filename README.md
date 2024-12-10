@@ -56,3 +56,14 @@ if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
 https://www.youtube.com/watch?v=dgaAh0Dv0kc
 https://www.youtube.com/watch?v=QXxy8Uv1LnQ&t=195s
 https://krimsonhart.medium.com/how-i-built-my-portfolio-using-next-js-and-sqlite-db-part-2-37595ca4dc40
+
+
+# Prisma with PostgreSQL:
+1. Stop Node Serveis
+2. add = DATABASE_URL="postgresql://postgres.dgcwfrolmumumjxbrwsf:SupyesI649#@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?schema=public" in env file
+3. npx prisma generate (Ensure Prisma is install)
+4. Run migrations to apply the schema to your Supabase database
+    $ npx prisma migrate dev --name init
+
+    Or you can push the schema changes
+    $ npx prisma db push
