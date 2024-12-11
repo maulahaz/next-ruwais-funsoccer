@@ -101,7 +101,7 @@ export default function Home() {
             <h2 className="text-3xl text-center">
               {latestMatch.status === "Live" ? "Live Match" : "Latest Match"}
             </h2>
-            <div className="text-center">
+            <div className="text-center mb-2">
               <p>
                 {dayjs(latestMatch.match_datetime).utc().format("DD-MMM-YY")}
               </p>
@@ -113,17 +113,17 @@ export default function Home() {
                   src={`/flags/${latestMatch.home_team.name}.png`}
                   className="w-28 object-cover"
                 />
+                <p className="text-lg">{latestMatch.home_team_goals ?? 0}</p>
                 <h3 className="text-lg">{latestMatch.home_team.team_alias} </h3>
               </div>
               <div className="text-center">
-                <h3 className="space-x-2 text-4xl font-bold">
-                  <span>{latestMatch.home_team_goals ?? 0}</span>
-                  <span>{" : "}</span>
-                  <span>{latestMatch.away_team_goals ?? 0}</span>
+                {/* <h3 className="text-2xl font-bold">VS</h3> */}
+                <h3 className="space-x-2 text-3xl font-bold mb-6">VS
+                  {/* <span>{latestMatch.home_team_goals ?? 0}</span> */}
+                  {/* <span>{" VS "}</span> */}
+                  {/* <span>{latestMatch.away_team_goals ?? 0}</span> */}
                 </h3>
                 <div>
-                  {/* {latestMatch.winner}{" "}
-                  {latestMatch.winner !== "Draw" && "Wins"} */}
                   {latestMatch.status !== "Completed"
                     ? "Live"
                     : latestMatch.home_team_goals > latestMatch.away_team_goals
@@ -138,9 +138,10 @@ export default function Home() {
                   src={`/flags/${latestMatch.away_team.name}.png`}
                   className="w-28 object-cover"
                 />
+                <p className="text-lg">{latestMatch.away_team_goals ?? 0}</p>
+                {/* <h4>{latestMatch.away_team_goals ?? 0}</h4> */}
                 <h3 className="text-lg">{latestMatch.away_team.team_alias}</h3>
               </div>
-              {/* -- Add Link to All matches */}
             </div>
           </div>
         </div>
@@ -161,16 +162,17 @@ export default function Home() {
                 .filter((match) => match.status === "Future")
                 .sort(
                   (a, b) =>
-                    dayjs(a.match_datetime).valueOf() - dayjs(b.match_datetime).valueOf()
+                    dayjs(a.match_datetime).valueOf() -
+                    dayjs(b.match_datetime).valueOf()
                 )[0];
-                // console.log('Matches are: ', matches);
-                // console.log('Next is: ', nextMatch);
 
               return (
                 <div>
-                  <div className="text-center">
+                  <div className="text-center mb-2">
                     <p>
-                      {dayjs(nextMatch.match_datetime).format("DD-MMM-YY HH:mm")}
+                      {dayjs(nextMatch.match_datetime).format(
+                        "DD-MMM-YY HH:mm"
+                      )}
                     </p>
                     <p>{nextMatch.venue || "TBA"}</p>
                   </div>
@@ -189,7 +191,7 @@ export default function Home() {
                       </h3>
                     </div>
                     <div className="text-center">
-                      <h3 className="text-2xl font-bold">VS</h3>
+                      <h3 className="space-x-2 text-3xl font-bold">VS</h3>
                       <p className="text-sm mt-2">
                         {capitalize(dayjs(nextMatch.match_datetime).fromNow())}
                       </p>
