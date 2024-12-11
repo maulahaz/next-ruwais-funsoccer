@@ -43,6 +43,7 @@ export default function Home() {
   const fetchMatches = async () => {
     const data = await fetch("/api/matches");
     const dataJson = await data.json();
+    console.log("BaseURL :", process.env.NEXT_PUBLIC_BASE_URL);
     // console.log("All Matches :", dataJson);
     // console.log(
     //   "All Matches data structure:",
