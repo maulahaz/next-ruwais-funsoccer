@@ -73,7 +73,7 @@ export default function LeagueTable() {
                   <td className="px-4 py-2 text-center">{team.losses}</td>
                   <td className="px-4 py-2 text-center">{team.goals_for}</td>
                   <td className="px-4 py-2 text-center">
-                    {team.goals_difference}
+                    {team.goal_difference}
                   </td>
                   <td className="px-4 py-2 text-center font-bold">
                     {team.points}
