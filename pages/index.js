@@ -154,7 +154,7 @@ export default function Home() {
       {/* Incoming Match */}
       {matches.filter((match) => match.status === "Future").length > 0 && (
         <div className="flex justify-center w-full mt-8">
-          <div className="max-w-[550px] w-full border border rounded-lg p-6 bg-neutral-900">
+          <div className="max-w-[550px] w-full border border rounded-lg p-6 mb-8 bg-neutral-900">
             <h2 className="text-3xl text-center">Upcoming Match</h2>
             {(() => {
               const nextMatch = matches

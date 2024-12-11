@@ -57,7 +57,7 @@ export default function Schedule() {
         <div className="overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
-              <tr className="bg-gray-800">
+              <tr className="bg-gray-800 text-yellow-200">
                 <th className="px-4 py-2">Date & Time</th>
                 <th className="px-4 py-2">Match</th>
                 <th className="px-4 py-2">Stage</th>
@@ -78,7 +78,7 @@ export default function Schedule() {
                       {dayjs(match.match_datetime).utc().format("DD MMM YYYY HH:mm")}
                     </td>
                     <td className="px-4 py-2 text-center">
-                      {match.home_team.name} vs {match.away_team.name}
+                      {match.home_team.team_alias} vs {match.away_team.team_alias}
                     </td>
                     <td className="px-4 py-2 text-center">
                       {match.stage_name || "N/A"}

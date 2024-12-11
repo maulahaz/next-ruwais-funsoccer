@@ -36,7 +36,7 @@ export default function LeagueTable() {
         <div className="overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
-              <tr className="bg-gray-800">
+              <tr className="bg-gray-800 text-yellow-200">
                 <th className="px-4 py-2">Position</th>
                 <th className="px-4 py-2">Team</th>
                 <th className="px-4 py-2">Played</th>
@@ -52,7 +52,7 @@ export default function LeagueTable() {
               {leagueData.map((team, index) => (
                 <tr key={team.id} className={index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}>
                   <td className="px-4 py-2 text-center">{index + 1}</td>
-                  <td className="px-4 py-2">{team.name}</td>
+                  <td className="px-4 py-2">{team.team_alias}</td>
                   <td className="px-4 py-2 text-center">{team.matches_played}</td>
                   <td className="px-4 py-2 text-center">{team.wins}</td>
                   <td className="px-4 py-2 text-center">{team.draws}</td>
