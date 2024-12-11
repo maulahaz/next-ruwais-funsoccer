@@ -43,11 +43,11 @@ export default function Home() {
   const fetchMatches = async () => {
     const data = await fetch("/api/matches");
     const dataJson = await data.json();
-    console.log("All Matches :", dataJson);
-    console.log(
-      "All Matches data structure:",
-      JSON.stringify(dataJson[0], null, 2)
-    );
+    // console.log("All Matches :", dataJson);
+    // console.log(
+    //   "All Matches data structure:",
+    //   JSON.stringify(dataJson[0], null, 2)
+    // );
     setMatches(dataJson);
     setIsLoading(false);
   };
@@ -112,7 +112,10 @@ export default function Home() {
             <div className="flex justify-between items-center gap-4">
               <div className="text-center space-y-4">
                 <img
-                  src={`/flags/${latestMatch.home_team.name}.png`}
+                  src={
+                    process.env.NEXT_PUBLIC_BASE_URL +
+                    `flags/${latestMatch.home_team.name}.png`
+                  }
                   className="w-28 object-cover"
                 />
                 <h3 className="text-lg">{latestMatch.home_team.name} </h3>
@@ -137,7 +140,10 @@ export default function Home() {
               </div>
               <div className="text-center space-y-4">
                 <img
-                  src={`/flags/${latestMatch.away_team.name}.png`}
+                  src={
+                    process.env.NEXT_PUBLIC_BASE_URL +
+                    `flags/${latestMatch.away_team.name}.png`
+                  }
                   className="w-28 object-cover"
                 />
                 <h3 className="text-lg">{latestMatch.away_team.name}</h3>
@@ -151,7 +157,6 @@ export default function Home() {
                 </a>
               </Link>
             </div>
-
           </div>
         </div>
       ) : (
@@ -187,7 +192,10 @@ export default function Home() {
                   <div className="flex justify-between items-center gap-4">
                     <div className="text-center space-y-4">
                       <img
-                        src={`/flags/${nextMatch.home_team.name}.png`}
+                        src={
+                          process.env.NEXT_PUBLIC_BASE_URL +
+                          `flags/${nextMatch.home_team.name}.png`
+                        }
                         className="w-28 object-cover"
                         alt={nextMatch.home_team}
                       />
@@ -201,7 +209,10 @@ export default function Home() {
                     </div>
                     <div className="text-center space-y-4">
                       <img
-                        src={`/flags/${nextMatch.away_team.name}.png`}
+                        src={
+                          process.env.NEXT_PUBLIC_BASE_URL +
+                          `flags/${nextMatch.away_team.name}.png`
+                        }
                         className="w-28 object-cover"
                         alt={nextMatch.away_team}
                       />
