@@ -72,7 +72,7 @@ export default function Schedule() {
             </thead>
             <tbody>
               {scheduleData
-                .sort((b, a) =>
+                .sort((a, b) =>
                   dayjs(a.match_datetime).diff(dayjs(b.match_datetime))
                 )
                 .map((match, index) => (
@@ -85,7 +85,7 @@ export default function Schedule() {
                     </td>
                     <td className="px-4 py-2 text-center">
                       {match.home_team.team_alias}{" "}
-                      <span className="text-gray-400"> vs</span>{" "}
+                      <span className="text-orange-200"> vs</span>{" "}
                       {match.away_team.team_alias}
                     </td>
                     <td className="px-4 py-2 text-center">

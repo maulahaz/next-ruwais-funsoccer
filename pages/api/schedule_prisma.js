@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       const schedule = await prisma.match.findMany({
         select: {
           id: true,
-          datetime: true,
+          match_datetime: true,
           home_team: true,
           away_team: true,
           stage_name: true,
