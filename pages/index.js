@@ -118,19 +118,20 @@ export default function Home() {
               </div>
               <div className="text-center">
                 {/* <h3 className="text-2xl font-bold">VS</h3> */}
-                <h3 className="space-x-2 text-3xl font-bold mb-6">VS
+                <h3 className="space-x-2 text-3xl font-bold mb-6">
+                  VS
                   {/* <span>{latestMatch.home_team_goals ?? 0}</span> */}
                   {/* <span>{" VS "}</span> */}
                   {/* <span>{latestMatch.away_team_goals ?? 0}</span> */}
                 </h3>
-                <div>
+                <div className="text-yellow-300">
                   {latestMatch.status !== "Completed"
                     ? "Live"
                     : latestMatch.home_team_goals > latestMatch.away_team_goals
                     ? `${latestMatch.home_team.team_alias} Wins`
                     : latestMatch.home_team_goals < latestMatch.away_team_goals
                     ? `${latestMatch.away_team.team_alias} Wins`
-                    : "Draw"}
+                    : "Draw".toUpperCase()}
                 </div>
               </div>
               <div className="text-center space-y-4">
@@ -159,12 +160,13 @@ export default function Home() {
             <h2 className="text-3xl text-center">Upcoming Match</h2>
             {(() => {
               const nextMatch = matches
-                .filter((match) => match.status === "Future")
+                .filter((match) => match.status != "Completed")
                 .sort(
                   (a, b) =>
                     dayjs(a.match_datetime).valueOf() -
                     dayjs(b.match_datetime).valueOf()
                 )[0];
+              console.log("Next", nextMatch);
 
               return (
                 <div>
@@ -192,8 +194,12 @@ export default function Home() {
                     </div>
                     <div className="text-center">
                       <h3 className="space-x-2 text-3xl font-bold">VS</h3>
-                      <p className="text-sm mt-2">
-                        {capitalize(dayjs(nextMatch.match_datetime).fromNow())}
+                      <p className="text-sm mt-2 text-yellow-300">
+                        {nextMatch.status != "Future"
+                          ? nextMatch.status.toUpperCase()
+                          : capitalize(
+                              dayjs(nextMatch.match_datetime).fromNow()
+                            )}
                       </p>
                     </div>
                     <div className="text-center space-y-4">
