@@ -5,6 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import Link from "next/link";
+import Image from "next/image";
 import { supabase } from "../lib/supabase";
 
 dayjs.extend(relativeTime);
@@ -112,11 +113,16 @@ export default function Home() {
             </div>
             <div className="flex justify-between items-center gap-4">
               <div className="text-center space-y-4">
-                <img
-                  src={`/flags/${latestMatch.home_team.name}.png`
-                  }
+                <Image
+                  src={`/flags/${latestMatch.home_team.name}.png`}
+                  width={100}
+                  height={100}
                   className="w-28 object-cover"
                 />
+                {/* <img
+                  src={`/flags/${latestMatch.home_team.name}.png`}
+                  className="w-28 object-cover"
+                /> */}
                 <h3 className="text-lg">{latestMatch.home_team.name} </h3>
               </div>
               <div className="text-center">
@@ -138,11 +144,16 @@ export default function Home() {
                 </div>
               </div>
               <div className="text-center space-y-4">
-                <img
-                  src={`/flags/${latestMatch.away_team.name}.png`
-                  }
+                <Image
+                  src={`/flags/${latestMatch.away_team.name}.png`}
+                  width={100}
+                  height={100}
                   className="w-28 object-cover"
                 />
+                {/* <img
+                  src={`/flags/${latestMatch.away_team.name}.png`}
+                  className="w-28 object-cover"
+                /> */}
                 <h3 className="text-lg">{latestMatch.away_team.name}</h3>
               </div>
               {/* -- Add Link to All matches */}
