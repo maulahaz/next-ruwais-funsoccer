@@ -13,11 +13,11 @@ export default function Schedule() {
   const fetchScheduleData = async () => {
     const data = await fetch("/api/matches");
     const dataJson = await data.json();
-    console.log("All Matches :", dataJson);
-    console.log(
-      "All Matches data structure:",
-      JSON.stringify(dataJson[0], null, 2)
-    );
+    // console.log("All Matches :", dataJson);
+    // console.log(
+    //   "All Matches data structure:",
+    //   JSON.stringify(dataJson[0], null, 2)
+    // );
     setScheduleData(dataJson);
     setIsLoading(false);
   };
@@ -43,7 +43,11 @@ export default function Schedule() {
   // }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="bg-black h-screen w-screen flex items-center justify-center">
+        <p>Loading the data...</p>
+      </div>
+    );
   }
 
   return (

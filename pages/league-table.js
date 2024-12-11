@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import Link from "next/link";
 
 export default function LeagueTable() {
   const [leagueData, setLeagueData] = useState([]);
@@ -9,12 +9,17 @@ export default function LeagueTable() {
   useEffect(() => {
     const fetchLeagueData = async () => {
       try {
-        const response = await fetch('/api/league-table');
+        const response = await fetch("/api/league-table");
         const data = await response.json();
+        console.log("League Matches :", data);
+        console.log(
+          "All Matches data structure:",
+          JSON.stringify(data[0], null, 2)
+        );
         setLeagueData(data);
         setIsLoading(false);
       } catch (error) {
-        console.error('Failed to fetch league data:', error);
+        console.error("Failed to fetch league data:", error);
         setIsLoading(false);
       }
     };
@@ -23,7 +28,11 @@ export default function LeagueTable() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="bg-black h-screen w-screen flex items-center justify-center">
+        <p>Loading the data...</p>
+      </div>
+    );
   }
 
   return (
@@ -50,16 +59,25 @@ export default function LeagueTable() {
             </thead>
             <tbody>
               {leagueData.map((team, index) => (
-                <tr key={team.id} className={index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}>
+                <tr
+                  key={team.id}
+                  className={index % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
+                >
                   <td className="px-4 py-2 text-center">{index + 1}</td>
                   <td className="px-4 py-2">{team.team_alias}</td>
-                  <td className="px-4 py-2 text-center">{team.matches_played}</td>
+                  <td className="px-4 py-2 text-center">
+                    {team.matches_played}
+                  </td>
                   <td className="px-4 py-2 text-center">{team.wins}</td>
                   <td className="px-4 py-2 text-center">{team.draws}</td>
                   <td className="px-4 py-2 text-center">{team.losses}</td>
                   <td className="px-4 py-2 text-center">{team.goals_for}</td>
-                  <td className="px-4 py-2 text-center">{team.goals_difference}</td>
-                  <td className="px-4 py-2 text-center font-bold">{team.points}</td>
+                  <td className="px-4 py-2 text-center">
+                    {team.goals_difference}
+                  </td>
+                  <td className="px-4 py-2 text-center font-bold">
+                    {team.points}
+                  </td>
                 </tr>
               ))}
             </tbody>

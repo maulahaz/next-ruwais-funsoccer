@@ -3,19 +3,19 @@ import { supabase } from "../../lib/supabase";
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      // Fetch teams
+      //--Fetch teams
       const { data: teams, error: teamsError } = await supabase
         .from('teams')
-        .select('id, name, team_code')
+        .select('id, name, team_code, team_alias')
 
       if (teamsError) throw teamsError
 
-      // Fetch matches
+      //--Fetch matches
       const { data: matches, error: matchesError } = await supabase
         .from('matches')
         .select(`home_team_id, away_team_id, home_team_goals, away_team_goals, status, home_team:home_team_id (name, team_alias),
         away_team:away_team_id (name, team_alias)`)
-        .eq('status', 'completed')
+        .eq('status', 'Completed')
 
       if (matchesError) throw matchesError
 
