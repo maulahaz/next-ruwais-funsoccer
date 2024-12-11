@@ -166,7 +166,6 @@ export default function Home() {
                     dayjs(a.match_datetime).valueOf() -
                     dayjs(b.match_datetime).valueOf()
                 )[0];
-              console.log("Next", nextMatch);
 
               return (
                 <div>
