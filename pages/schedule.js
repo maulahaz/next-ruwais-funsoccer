@@ -68,17 +68,21 @@ export default function Schedule() {
             </thead>
             <tbody>
               {scheduleData
-                .sort((b, a) => dayjs(a.match_datetime).diff(dayjs(b.match_datetime)))
+                .sort((b, a) =>
+                  dayjs(a.match_datetime).diff(dayjs(b.match_datetime))
+                )
                 .map((match, index) => (
                   <tr
                     key={match.id}
                     className={index % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
                   >
                     <td className="px-4 py-2 text-center">
-                      {dayjs(match.match_datetime).utc().format("DD MMM YYYY HH:mm")}
+                      {dayjs(match.match_datetime).format("DD MMM YYYY HH:mm")}
                     </td>
                     <td className="px-4 py-2 text-center">
-                      {match.home_team.team_alias} vs {match.away_team.team_alias}
+                      {match.home_team.team_alias}{" "}
+                      <span className="text-gray-400"> vs</span>{" "}
+                      {match.away_team.team_alias}
                     </td>
                     <td className="px-4 py-2 text-center">
                       {match.stage_name || "N/A"}
@@ -86,7 +90,7 @@ export default function Schedule() {
                     <td className="px-4 py-2 text-center">
                       {match.status || "N/A"}
                     </td>
-                    {match.status === "completed" ? (
+                    {match.status === "Completed" ? (
                       <td className="px-4 py-2 text-center">
                         {match.home_team_goals + " - " + match.away_team_goals}
                       </td>
@@ -111,4 +115,3 @@ export default function Schedule() {
     </div>
   );
 }
-
