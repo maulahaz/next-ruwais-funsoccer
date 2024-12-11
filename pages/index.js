@@ -160,17 +160,17 @@ export default function Home() {
               const nextMatch = matches
                 .filter((match) => match.status === "Future")
                 .sort(
-                  (b, a) =>
-                    dayjs(a.datetime).valueOf() - dayjs(b.datetime).valueOf()
+                  (a, b) =>
+                    dayjs(a.match_datetime).valueOf() - dayjs(b.match_datetime).valueOf()
                 )[0];
+                // console.log('Matches are: ', matches);
+                // console.log('Next is: ', nextMatch);
 
               return (
                 <div>
                   <div className="text-center">
                     <p>
-                      {dayjs(latestMatch.match_datetime)
-                        .utc()
-                        .format("DD-MMM-YY HH:mm")}
+                      {dayjs(nextMatch.match_datetime).format("DD-MMM-YY HH:mm")}
                     </p>
                     <p>{nextMatch.venue || "TBA"}</p>
                   </div>
