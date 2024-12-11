@@ -113,9 +113,7 @@ export default function Home() {
             <div className="flex justify-between items-center gap-4">
               <div className="text-center space-y-4">
                 <img
-                  src={
-                    process.env.NEXT_PUBLIC_BASE_URL +
-                    `flags/${latestMatch.home_team.name}.png`
+                  src={`/flags/${latestMatch.home_team.name}.png`
                   }
                   className="w-28 object-cover"
                 />
@@ -141,9 +139,7 @@ export default function Home() {
               </div>
               <div className="text-center space-y-4">
                 <img
-                  src={
-                    process.env.NEXT_PUBLIC_BASE_URL +
-                    `flags/${latestMatch.away_team.name}.png`
+                  src={`/flags/${latestMatch.away_team.name}.png`
                   }
                   className="w-28 object-cover"
                 />
