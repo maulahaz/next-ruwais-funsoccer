@@ -84,9 +84,9 @@ export default function Home() {
               Matches
             </button>
           </Link>
-          <Link href="/league-table">
+          <Link href="/players">
             <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
-              Table
+              Players
             </button>
           </Link>
           <Link href="/match-statistic">

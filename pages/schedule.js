@@ -111,8 +111,10 @@ export default function Schedule() {
           </table>
         </div>
         <div className="mt-8 text-center">
-          <Link href="/" className="text-blue-400 hover:text-blue-300">
-            Back to Home
+          <Link href="/">
+            <button className="text-sm px-6 py-2 border rounded-full hover:bg-orange-200 hover:text-black transition duration-300">
+              Back to Home
+            </button>
           </Link>
         </div>
       </div>

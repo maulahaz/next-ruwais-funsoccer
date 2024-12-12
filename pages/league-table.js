@@ -11,11 +11,11 @@ export default function LeagueTable() {
       try {
         const response = await fetch("/api/league-table");
         const data = await response.json();
-        console.log("League Matches :", data);
-        console.log(
-          "All Matches data structure:",
-          JSON.stringify(data[0], null, 2)
-        );
+        // console.log("League Matches :", data);
+        // console.log(
+        //   "All Matches data structure:",
+        //   JSON.stringify(data[0], null, 2)
+        // );
         setLeagueData(data);
         setIsLoading(false);
       } catch (error) {
@@ -53,6 +53,7 @@ export default function LeagueTable() {
                 <th className="px-4 py-2">Drawn</th>
                 <th className="px-4 py-2">Lost</th>
                 <th className="px-4 py-2">GF</th>
+                <th className="px-4 py-2">GA</th>
                 <th className="px-4 py-2">GD</th>
                 <th className="px-4 py-2">Points</th>
               </tr>
@@ -72,6 +73,7 @@ export default function LeagueTable() {
                   <td className="px-4 py-2 text-center">{team.draws}</td>
                   <td className="px-4 py-2 text-center">{team.losses}</td>
                   <td className="px-4 py-2 text-center">{team.goals_for}</td>
+                  <td className="px-4 py-2 text-center">{team.goals_against}</td>
                   <td className="px-4 py-2 text-center">
                     {team.goal_difference}
                   </td>
