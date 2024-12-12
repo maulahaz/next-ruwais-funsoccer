@@ -62,7 +62,7 @@ export default function MatchStatistic() {
       {/* Table */}
       
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-center">League Table</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center">Match Table</h1>
         <div className="overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
