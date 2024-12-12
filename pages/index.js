@@ -162,7 +162,11 @@ export default function Home() {
             <h2 className="text-3xl text-center">Upcoming Match</h2>
             {(() => {
               const nextMatch = matches
-                .filter((match) => match.status != "Completed")
+                .filter(
+                  (match) =>
+                    match.status != "Completed" &&
+                    dayjs(match.match_datetime).isAfter(dayjs().startOf("day"))
+                )
                 .sort(
                   (a, b) =>
                     dayjs(a.match_datetime).valueOf() -

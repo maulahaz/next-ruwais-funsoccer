@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
       //--Make Function to Get Match Statistic:
       const { data: matchStatistics, error: matchStaticsError } =
-        await supabase.rpc("get_team_stats");
+        await supabase.rpc("get_team_stat");
       if (matchStaticsError) throw matchStaticsError;
 
       res

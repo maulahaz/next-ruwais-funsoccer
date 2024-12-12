@@ -12,7 +12,7 @@ export default function MatchStatistic() {
       try {
         const response = await fetch("/api/records");
         const data = await response.json();
-        console.log("Match Record :", data);
+        // console.log("Match Record :", data);
         setMatchStatistics(data["match-stat"]);
         setTopPlayer(data["top-player"]);
         setIsLoading(false);
@@ -82,6 +82,7 @@ export default function MatchStatistic() {
                 <th className="px-4 py-2">Total Fouls</th>
                 <th className="px-4 py-2">Total Yellow Cards</th>
                 <th className="px-4 py-2">Total Red Cards</th>
+                <th className="px-4 py-2">Total Own Goals</th>
                 <th className="px-4 py-2">Total Penalties</th>
               </tr>
             </thead>
@@ -99,6 +100,9 @@ export default function MatchStatistic() {
                   </td>
                   <td className="px-4 py-2 text-center">
                     {match.total_red_cards}
+                  </td>
+                  <td className="px-4 py-2 text-center">
+                    {match.total_own_goals}
                   </td>
                   <td className="px-4 py-2 text-center">
                     {match.total_penalties}

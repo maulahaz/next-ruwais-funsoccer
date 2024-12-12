@@ -1,0 +1,31 @@
+id,name,alias,origin,photo,phone,address,team_id,prev_club,jersey_num,goals_scored,yellow_card,red_card,match_id
+23,Budi H,Budi H,Ruwais,https://example.com/CR7.jpg,5551234567,Ruwais,1,Manchester United,7,0,0,0,3
+24,Andanawa,Andanawa,Ruwais,https://example.com/LM10.jpg,5551234567,Ruwais,5,Barcelona,10,0,0,0,3
+25,Hermawan,Hermawan,Ruwais,https://example.com/KM.jpg,5551234567,Ruwais,5,Paris Saint-Germain,10,0,0,0,3
+26,Wisnu,Wisnu,Ruwais,https://example.com/Lewa.jpg,5551234567,Ruwais,5,Bayern Munich,9,0,0,0,3
+27,Iip,Pojok kanan,Ruwais,https://example.com/MS.jpg,5551234567,Karang Bolong,5,Liverpool,11,0,0,0,3
+28,Dilianto,Dilianto,Ruwais,https://example.com/Neymar.jpg,5551234567,Ruwais,5,Paris Saint-Germain,10,0,0,0,3
+29,Subekti,Subekti,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Tottenham Hotspur,9,0,0,0,3
+30,Eka,Eka,Ruwais,https://example.com/KDB.jpg,5551234567,Cilgon,5,Manchester City,17,0,0,0,3
+31,Ferdi,Ferdi,Ruwais,https://example.com/EH.jpg,5551234567,Ruwais,5,Real Madrid,10,0,0,0,3
+32,Khaidir,Khaidir,Ruwais,https://example.com/CR7.jpg,5551234567,Ruwais,5,Real Madrid,10,0,0,0,3
+33,Zain,Zain Basamo,Ruwais,https://example.com/LM10.jpg,5551234567,Ruwais,5,Real Madrid,10,0,0,0,3
+34,Firman,Firman,Ruwais,https://example.com/KM.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+35,Herman,Herman,Ruwais,https://example.com/Lewa.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+36,Eben,Eben,Ruwais,https://example.com/MS.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+37,Budi S,Budi S,Ruwais,https://example.com/Neymar.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+38,Karjono,Karjono,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+39,Asep Nanang,Nanang,Ruwais,https://example.com/KDB.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+40,Waluyo,Waluyo,Ruwais,https://example.com/EH.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+41,Ivan,Ivan,Ruwais,https://example.com/CR7.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+42,Wardaya,Wardaya,Ruwais,https://example.com/LM10.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+43,Hasan,Hasan,Ruwais,https://example.com/KM.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+44,Mario,Mario,Ruwais,https://example.com/Lewa.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+45,Nuraflish,Nuraflish,Ruwais,https://example.com/MS.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+46,Ricky G,Ricky G,Ruwais,https://example.com/Neymar.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+47,Fauzar,Fauzar,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,3
+48,Namiri,Namiri,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,4
+49,Sabar,Sabar,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,4
+50,Zulkifli,Zulkifli,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,4
+51,Made,Made,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,4
+52,Asgari,Asgari,Ruwais,https://example.com/HK.jpg,5551234567,Ruwais,5,Liverpool,4,0,0,0,4
