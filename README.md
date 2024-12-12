@@ -1,5 +1,39 @@
+# Project : Ruwais Gibol
+***************************************************************
+NextJS: Build Football Match Update and Statistic
 
-## How:
+
+## Notes:
+- Started at: Week-1 of Dec24
+- Machine: NextJS v.12.1.0
+- Web Deploy: vercel.com
+- Packages: PWA, Tailwind, Typescript
+- Backend: NA
+- DB: Supabase
+- API: NA
+
+## References:
+- https://www.youtube.com/watch?v=dgaAh0Dv0kc
+- https://www.youtube.com/watch?v=QXxy8Uv1LnQ&t=195s
+- https://krimsonhart.medium.com/how-i-built-my-portfolio-using-next-js-and-sqlite-db-part-2-37595ca4dc40
+
+- Random Images: [https://i.pravatar.cc/200](https://i.pravatar.cc/200)
+- Random Images: [https://picsum.photos/200](https://picsum.photos/200)
+- Unsplash Images: https://source.unsplash.com/[IMAGE ID]
+- Color Ref: [Colors](https://coolors.co/palettes/trending)
+- Svg Icon Collection: [SVG Icons](http://svgrepo.com)
+- Github Emoji Collection (for Markdown): [Emoji](https://github.com/ikatyang/emoji-cheat-sheet)
+- Emoji Collection (for HTML): [Emoji](https://html-css-js.com/html/character-codes/)
+- Docs and Diagrams platform for engineering teams: [Eraser.App](https://app.eraser.io/)
+- Markdown Editor: [Markdown Editor](https://pandao.github.io/editor.md/index.html)
+- Markdown to HTML: [Markdown to HTML](https://markdowntohtml.com)
+
+## Snapshot:
+![Ruwais Gibol](public/snapshot/ruwais-gibol.jpg)
+<hr>
+
+
+## How To:
 1. Install typescript
 $ npm install typescript --save-dev
 
@@ -51,16 +85,9 @@ if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
 ```
 
 
-
-## Ref:
-https://www.youtube.com/watch?v=dgaAh0Dv0kc
-https://www.youtube.com/watch?v=QXxy8Uv1LnQ&t=195s
-https://krimsonhart.medium.com/how-i-built-my-portfolio-using-next-js-and-sqlite-db-part-2-37595ca4dc40
-
-
 # Prisma with PostgreSQL:
 1. Stop Node Serveis
-2. add = DATABASE_URL="postgresql://postgres.dgcwfrolmumumjxbrwsf:SupyesI649#@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?schema=public" in env file
+2. add = DATABASE_URL="postgresql:URL" in env file
 3. npx prisma generate (Ensure Prisma is install)
 4. Run migrations to apply the schema to your Supabase database
     $ npx prisma migrate dev --name init

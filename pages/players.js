@@ -87,8 +87,8 @@ export default function Players() {
           {players.map((player) => (
             <div key={player.id} className="border rounded-lg p-4 shadow-md">
               <img
-                //   src={`/players/${player.id}.jpg`}
-                src={`/players/user.jpg`}
+                  src={player.photo ? `/players/${player.id}.jpg` : `/players/user.jpg`}
+                // src={`/players/user.jpg`}
                 alt={player.name}
                 className="w-24 h-24 rounded-full mx-auto mb-4"
               />

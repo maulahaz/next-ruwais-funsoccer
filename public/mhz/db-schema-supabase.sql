@@ -167,3 +167,5 @@ LEFT JOIN players p ON t.id = p.team_id
 LEFT JOIN match_logs ml ON p.id = ml.player_id
 GROUP BY t.id, t.team_alias
 ORDER BY t.id;
+
+ALTER SEQUENCE blog_id_seq RESTART WITH 1000;
