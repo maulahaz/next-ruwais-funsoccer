@@ -89,9 +89,11 @@ export default function Home() {
               Table
             </button>
           </Link>
-          <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
-            Record
-          </button>
+          <Link href="/match-statistic">
+            <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
+              Statistic
+            </button>
+          </Link>
         </div>
       </div>
 

@@ -10,8 +10,8 @@ function MyApp({ Component, pageProps }) {
         name="viewport"
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
       />
-      <meta name="description" content="Piala Dunia" />
-      <meta name="keywords" content="worldcup" />
+      <meta name="description" content="Ruwais Gibol" />
+      <meta name="keywords" content="gibol" />
       <title>Ruwais Gibol</title>
 
       <link rel="manifest" href="/manifest.json" />

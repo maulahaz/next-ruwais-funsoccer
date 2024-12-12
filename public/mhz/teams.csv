@@ -1,0 +1,6 @@
+id,name,team_alias,team_code,captain,motto,flag_url,created_at,updated_at
+1,Team-A,Red Devils,MUN,Harry Maguire,Glory Glory Man United,https://example.com/flags/manu.png,2024-12-09 10:00:00,2024-12-09 10:00:00
+2,Team-B,The Reds,LIV,Virgil van Dijk,You'll Never Walk Alone,https://example.com/flags/liv.png,2024-12-09 10:00:00,2024-12-09 10:00:00
+3,Team-C,Blues,CHE,César Azpilicueta,Keep The Blue Flag Flying High,https://example.com/flags/chelsea.png,2024-12-09 10:00:00,2024-12-09 10:00:00
+4,Team-D,The Gunners,ARS,Pierre-Emerick Aubameyang,Victory through Unity,https://example.com/flags/arsenal.png,2024-12-09 10:00:00,2024-12-09 10:00:00
+5,Team-G,Cityzens,MCFC,Kevin De Bruyne,We Are City,https://example.com/flags/manchestercity.png,2024-12-09 10:00:00,2024-12-09 10:00:00
