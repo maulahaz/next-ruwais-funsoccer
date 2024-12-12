@@ -115,15 +115,16 @@ VALUES
     ;    
 
 --Make Function to Fetch Data for Top 10 Players with Most Goals:
-CREATE OR REPLACE FUNCTION get_top_scorers(limit_num integer)
-RETURNS TABLE (name text, goals bigint) AS $$
+CREATE OR REPLACE FUNCTION top_scorer(limit_num integer)
+RETURNS TABLE (name text, team text, goals bigint) AS $$
 BEGIN
   RETURN QUERY
-  SELECT p.name::text, COUNT(ml.id) as goals
+  SELECT p.name::text, t.team_alias::text, COUNT(ml.id) as goals
   FROM players p
   JOIN match_logs ml ON p.id = ml.player_id
+  JOIN teams t ON t.id = p.team_id
   WHERE ml.log_name = 'Goal'
-  GROUP BY p.id, p.name
+  GROUP BY p.id, p.name, t.team_alias
   ORDER BY goals DESC
   LIMIT limit_num;
 END;

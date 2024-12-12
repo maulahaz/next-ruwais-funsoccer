@@ -14,7 +14,7 @@ export default function MatchStatistic() {
     try {
       const response = await fetch("/api/league-table");
       const data = await response.json();
-      //   console.log("League Matches :", data);
+        // console.log("League Matches :", data);
       //   console.log(
       //     "All Matches data structure:",
       //     JSON.stringify(data[0], null, 2)
@@ -120,7 +120,8 @@ export default function MatchStatistic() {
             <thead>
               <tr className="bg-gray-800 text-yellow-200">
                 <th className="w-20 px-2">No.</th>
-                <th className="w-80 px-2">Player Name</th>
+                <th className="text-left w-40 px-2">Player Name</th>
+                <th className="text-left w-40 px-2">Team</th>
                 <th className="w-30 px-2">Total Goals</th>
               </tr>
             </thead>
@@ -131,7 +132,8 @@ export default function MatchStatistic() {
                   className={index % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
                 >
                   <td className="text-center">{index + 1}</td>
-                  <td className="text-center">{dtTopPlayer.name}</td>
+                  <td className="text-left">{dtTopPlayer.name}</td>
+                  <td className="text-left">{dtTopPlayer.team}</td>
                   <td className="text-center">{dtTopPlayer.goals}</td>
                 </tr>
               ))}
