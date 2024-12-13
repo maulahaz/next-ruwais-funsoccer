@@ -8,7 +8,7 @@ export default function Players() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const playersPerPage = 10;
+  const playersPerPage = 12;
 
   useEffect(() => {
     fetchPlayers();
@@ -85,29 +85,46 @@ export default function Players() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {players.map((player) => (
-            <div key={player.id} className="border rounded-lg p-4 shadow-md">
-              <img
-                  src={player.photo ? `/players/${player.id}.jpg` : `/players/user.jpg`}
-                // src={`/players/user.jpg`}
-                alt={player.name}
-                className="w-24 h-24 rounded-full mx-auto mb-4"
-              />
-              <h2 className="text-xl font-semibold mb-2">{player.name}</h2>
-              <p>
-                <strong>Team:</strong> {player.team.team_alias}
-              </p>
-              <p>
-                <strong>Origin:</strong> {player.origin}
-              </p>
-              <p>
-                <strong>Jersey Number:</strong> {player.jersey_num}
-              </p>
-              <p>
-                <strong>Previous Club:</strong> {player.prev_club}
-              </p>
-              <p>
-                <strong>Address:</strong> {player.address}
-              </p>
+            <div
+              key={player.id}
+              className="border rounded-lg p-4 shadow-md flex items-start max-w-2xl"
+            >
+              <div className="mr-4 flex-shrink-0">
+                <div className="w-24 h-24 rounded-full border-2 border-white overflow-hidden">
+                  <img
+                    src={
+                      player.photo
+                        ? `/players/${player.id}.jpg`
+                        : `/players/user.jpg`
+                    }
+                    alt={player.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h2 className="text-xl font-semibold mt-2 text-center">
+                  {player.name}
+                </h2>
+              </div>
+              <div className="flex-grow">
+                <p>
+                  <strong>Team:</strong> {player.team.team_alias}
+                </p>
+                <p>
+                  <strong>Position:</strong> GK
+                </p>
+                <p>
+                  <strong>Jersey Number:</strong> {player.jersey_num}
+                </p>
+                <p>
+                  <strong>Origin:</strong> {player.origin}
+                </p>
+                <p>
+                  <strong>Previous Club:</strong> {player.prev_club}
+                </p>
+                <p>
+                  <strong>Address:</strong> {player.address} {player.phone}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -132,21 +149,6 @@ export default function Players() {
             Next
           </button>
         </div>
-
-        {/* Pagination-1 */}
-        {/* <div className="mt-8 flex justify-center">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`mx-1 px-3 py-1 border rounded ${
-                currentPage === page ? "bg-blue-500 text-white" : ""
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-        </div> */}
 
         <div className="mt-8 text-center">
           <Link href="/">
