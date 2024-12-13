@@ -95,7 +95,7 @@ export default function Players() {
             <input
               id="searchInput"
               type="text"
-              placeholder="Enter player name or alias..."
+              placeholder="Type here..."
               value={searchTerm}
               onChange={handleSearch}
               className="flex-grow p-2 border rounded-l text-black"
@@ -104,7 +104,7 @@ export default function Players() {
               onClick={handleReset}
               className="bg-gray-500 text-white px-4 py-2 rounded-r hover:bg-blue-700 transition-colors"
             >
-              Reset All
+              Reset
             </button>
           </div>
         </div>
