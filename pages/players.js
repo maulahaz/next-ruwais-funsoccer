@@ -90,6 +90,7 @@ export default function Players() {
               className="border rounded-lg p-4 shadow-md flex items-start max-w-2xl"
             >
               <div className="mr-4 flex-shrink-0">
+                <a href={player.id}>
                 <div className="w-24 h-24 rounded-full border-2 border-white overflow-hidden">
                   <img
                     src={
@@ -101,16 +102,20 @@ export default function Players() {
                     className="w-full h-full object-cover"
                   />
                 </div>
+                </a>
                 <h2 className="text-xl font-semibold mt-2 text-center">
                   {player.name}
                 </h2>
+                <p className="text-sm text-center">
+                  {player.alias ?? "-"}
+                </p>
               </div>
               <div className="flex-grow">
                 <p>
                   <strong>Team:</strong> {player.team.team_alias}
                 </p>
                 <p>
-                  <strong>Position:</strong> GK
+                  <strong>Position:</strong> {player.position}
                 </p>
                 <p>
                   <strong>Jersey Number:</strong> {player.jersey_num}

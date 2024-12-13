@@ -27,7 +27,8 @@ NextJS: Build Football Match Update and Statistic
 - Docs and Diagrams platform for engineering teams: [Eraser.App](https://app.eraser.io/)
 - Markdown Editor: [Markdown Editor](https://pandao.github.io/editor.md/index.html)
 - Markdown to HTML: [Markdown to HTML](https://markdowntohtml.com)
-- Tailwind Play: [Plain tailwind](https://play.tailwindcss.com/)
+- To Play and Test Tailwind: [Play tailwind](https://play.tailwindcss.com/)
+- Tailwind Collection: [Tailwindflex](https://tailwindflex.com/)
 
 ## Snapshot:
 ![Ruwais Gibol](public/snapshot/ruwais-gibol.jpg)
