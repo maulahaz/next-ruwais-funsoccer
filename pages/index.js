@@ -78,19 +78,19 @@ export default function Home() {
       <div className="text-center p-8 space-y-4">
         <h1 className="text-6xl font-bold tracking-wide">Ruwais Gibol</h1>
         <p className="text-xl">Ruwais Fun Football Winter 2024</p>
-        <div className="flex justify-center space-x-4 mt-4">
+        <div className="flex justify-center space-x-2 mt-4">
           <Link href="/schedule">
-            <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
+            <button className="text-sm px-5 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
               Matches
             </button>
           </Link>
           <Link href="/players">
-            <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
+            <button className="text-sm px-5 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
               Players
             </button>
           </Link>
           <Link href="/match-statistic">
-            <button className="text-sm px-6 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
+            <button className="text-sm px-5 py-2 border rounded-full hover:bg-blue-700 transition duration-300">
               Statistic
             </button>
           </Link>
