@@ -78,7 +78,7 @@ export default function MatchLogs() {
       match_id: matchId,
     };
 
-    // let { data, error };
+    let { data, error } = {};
     if (editingId) {
       ({ data, error } = await supabase
         .from("match_logs")
@@ -168,7 +168,7 @@ export default function MatchLogs() {
                   <td className="border border-gray-800 p-2">
                     {log.player.name}
                   </td>
-                  <td className="border border-gray-800 p-2">
+                  <td className="border border-gray-800 p-2 text-center">
                     <button
                       onClick={() => handleEdit(log)}
                       className="bg-yellow-400 text-black px-2 py-1 rounded mr-2"
