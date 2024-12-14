@@ -100,7 +100,12 @@ VALUES
     (49, 'Sabar', 'Sabar', 'Ruwais', 'https://example.com/HK.jpg', '5551234567', 'Ruwais', 5, 'Liverpool', 4, 0, 0, 0, 4),
     (50, 'Zulkifli', 'Zulkifli', 'Ruwais', 'https://example.com/HK.jpg', '5551234567', 'Ruwais', 5, 'Liverpool', 4, 0, 0, 0, 4),
     (51, 'Made', 'Made', 'Ruwais', 'https://example.com/HK.jpg', '5551234567', 'Ruwais', 5, 'Liverpool', 4, 0, 0, 0, 4),
-    (52, 'Asgari', 'Asgari', 'Ruwais', 'https://example.com/HK.jpg', '5551234567', 'Ruwais', 5, 'Liverpool', 4, 0, 0, 0, 4);    
+    (52, 'Asgari', 'Asgari', 'Ruwais', 'https://example.com/HK.jpg', '5551234567', 'Ruwais', 5, 'Liverpool', 4, 0, 0, 0, 4);   
+
+INSERT INTO players (name, alias, team_id, jersey_num, position, photo, phone, address, origin, prev_club)
+VALUES
+    ('Dede Muharam', 'Abu Fadey', 5, 10, 'AMF, FWD', 59,'0512345678', 'Ruwais', 'Kramatwatu', 'Perserang');
+         
 
 INSERT INTO match_logs (id, match_id, log_name, log_datetime, player_id)
 VALUES

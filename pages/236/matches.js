@@ -260,6 +260,11 @@ export default function AdminMatches() {
                 >
                   Delete
                 </button> */}
+                  <Link href={`/236/match-logs/${match.id}`}>
+                    <button className="bg-orange-500 text-white px-2 py-1 rounded">
+                      Logs
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}
