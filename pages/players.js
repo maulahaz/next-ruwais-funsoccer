@@ -134,7 +134,7 @@ export default function Players() {
               className="border rounded-lg p-4 shadow-md flex items-start max-w-2xl"
             >
               <div className="mr-4 flex-shrink-0">
-                <a href={player.id}>
+                <a href={"/player-detail/" + player.id}>
                   <div className="w-24 h-24 rounded-full border-2 border-white overflow-hidden">
                     <img
                       src={
