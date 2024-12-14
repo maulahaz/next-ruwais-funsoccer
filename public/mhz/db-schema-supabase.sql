@@ -104,10 +104,19 @@ VALUES
 
 INSERT INTO players (name, alias, team_id, jersey_num, position, photo, phone, address, origin, prev_club)
 VALUES
-    ('Birin', 'Mang Birin', 1, 7, 'LW, RW, AMF, FWD', '','0512345678', 'Ruwais', '', ''),
-    ('Suza', 'SZ', 1, 10, 'AMF, FWD', '','0512345678', 'Ruwais', '', ''),
-    ('Edi', 'Edi Boy', 1, 7, 'LM, RM', '','0512345678', 'Ruwais', '', ''),
-    ('Maryadi', 'Dedi Obin', 1, 5, 'DF, CB', '','0512345678', 'Ruwais', '', '')
+    ('Ricky', 'R. Zanetti', 3, 5, 'CB, MF', '64','0512345678', 'Ruwais', '', ''),
+    ('Agus', 'AGS', 3, 10, 'MF', '','0512345678', 'Ruwais', '', ''),
+    ('Edi Suwarno', 'Edi', 3, 7, 'LM, RM', '','0512345678', 'Ruwais', '', ''),
+    ('Ust. Forqun', 'FRQ', 3, 10, 'ST', '','0512345678', 'Ruwais', '', ''),
+    ('Pangki', 'PGQ', 3, 10, 'ST', '','0512345678', 'Ruwais', '', ''),
+    ('Joel Yahya', 'Joel', 3, 5, 'MF', '','0512345678', 'Ruwais', '', ''),
+    ('Hasili', 'HSL', 3, 5, 'MF', '','0512345678', 'Ruwais', '', ''),
+    ('Aminudin', 'Amin', 3, 7, 'LM, RM', '','0512345678', 'Ruwais', '', ''),
+    ('Emil', 'Kang Emil', 3, 7, 'LM, RM', '','0512345678', 'Ruwais', '', ''),
+    ('Sandi', 'SND', 3, 5, 'MF', '','0512345678', 'Ruwais', '', ''),
+    ('Budiman', 'BDM', 3, 5, 'MF', '','0512345678', 'Ruwais', '', ''),
+    ('Edi Kris', 'Edi', 3, 9, 'ST', '','0512345678', 'Ruwais', '', ''),
+    ('Pabeda', 'PBD', 3, 5, 'DF, CB', '','0512345678', 'Ruwais', '', '')
     ;
 
 
