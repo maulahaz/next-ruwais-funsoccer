@@ -302,8 +302,8 @@ export default function AdminMatches() {
           id="my-modal"
         >
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div className="mt-3 text-center">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
+            <div className="mt-3">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 text-center">
                 {editingId ? "Edit Match" : "Create Match"}
               </h3>
               <div className="mt-2 px-7 py-3">

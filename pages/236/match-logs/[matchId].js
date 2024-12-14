@@ -31,7 +31,7 @@ export default function MatchLogs() {
   const fetchLogs = async () => {
     const { data, error } = await supabase
       .from("match_logs")
-      .select("*, player:player_id(name)")
+      .select("*, player:player_id(name, alias)")
       .eq("match_id", matchId)
       .order("log_datetime", { ascending: false });
 
@@ -40,7 +40,10 @@ export default function MatchLogs() {
   };
 
   const fetchPlayers = async () => {
-    const { data, error } = await supabase.from("players").select("id, name");
+    const { data, error } = await supabase
+      .from("players")
+      .select("id, name, alias")
+      .order("name", { ascending: true });
 
     if (error) console.error("Error fetching players:", error);
     else setPlayers(data);
@@ -166,7 +169,7 @@ export default function MatchLogs() {
                     {dayjs(log.log_datetime).format("DD-MMM-YY HH:mm:ss")}
                   </td>
                   <td className="border border-gray-800 p-2">
-                    {log.player.name}
+                    {log.player.name+"-"+log.player.alias}
                   </td>
                   <td className="border border-gray-800 p-2 text-center">
                     <button
@@ -200,8 +203,8 @@ export default function MatchLogs() {
       {showModal && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div className="mt-3 text-center">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
+            <div className="mt-3">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 text-center">
                 {editingId ? "Edit Log" : "Create Log"}
               </h3>
               <form onSubmit={handleSubmit} className="mt-2 px-7 py-3">
@@ -252,7 +255,7 @@ export default function MatchLogs() {
                     <option value="">Select Player</option>
                     {players.map((player) => (
                       <option key={player.id} value={player.id}>
-                        {player.name}
+                        {player.name + "-" + player.alias}
                       </option>
                     ))}
                   </select>
