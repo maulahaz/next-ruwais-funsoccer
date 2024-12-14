@@ -104,8 +104,12 @@ VALUES
 
 INSERT INTO players (name, alias, team_id, jersey_num, position, photo, phone, address, origin, prev_club)
 VALUES
-    ('Dede Muharam', 'Abu Fadey', 5, 10, 'AMF, FWD', 59,'0512345678', 'Ruwais', 'Kramatwatu', 'Perserang');
-         
+    ('Birin', 'Mang Birin', 1, 7, 'LW, RW, AMF, FWD', '','0512345678', 'Ruwais', '', ''),
+    ('Suza', 'SZ', 1, 10, 'AMF, FWD', '','0512345678', 'Ruwais', '', ''),
+    ('Edi', 'Edi Boy', 1, 7, 'LM, RM', '','0512345678', 'Ruwais', '', ''),
+    ('Maryadi', 'Dedi Obin', 1, 5, 'DF, CB', '','0512345678', 'Ruwais', '', '')
+    ;
+
 
 INSERT INTO match_logs (id, match_id, log_name, log_datetime, player_id)
 VALUES
