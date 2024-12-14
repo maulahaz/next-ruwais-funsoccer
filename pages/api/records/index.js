@@ -6,7 +6,7 @@ export default async function handler(req, res) {
       //--Fetch Data for Top 10 Players with Most Goals:
       const { data: topPlayers, error: topPlayersError } = await supabase.rpc(
         "top_scorer",
-        { limit_num: 5 }
+        { limit_num: 7 }
       );
       if (topPlayersError) throw topPlayersError;
 
