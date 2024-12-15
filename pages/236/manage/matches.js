@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { useRouter } from "next/router";
+import { supabase } from "../../../lib/supabase.js";
 import Head from "next/head";
-import { capitalize } from "../../src/utils.ts";
+import { capitalize } from "../../../src/utils.ts";
 import dayjs from "dayjs";
 import Link from "next/link";
 
 export default function AdminMatches() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const router = useRouter();
+
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
   const [formData, setFormData] = useState({
@@ -28,10 +32,28 @@ export default function AdminMatches() {
   const [alertType, setAlertType] = useState("");
   const itemsPerPage = 10;
 
+  // useEffect(() => {
+  //   fetchMatches();
+  //   fetchTeams();
+  // }, [currentPage, searchTerm]);
+
   useEffect(() => {
-    fetchMatches();
-    fetchTeams();
-  }, [currentPage, searchTerm]);
+    const checkAuthorization = () => {
+      const loggedInData = localStorage.getItem("loggedInData");
+      if (!loggedInData) {
+        router.push({
+          pathname: "/236/auth/login",
+          query: { error: "You do not have permission to access the page" },
+        });
+      } else {
+        setIsAuthorized(true);
+        fetchMatches();
+        fetchTeams();
+      }
+    };
+
+    checkAuthorization();
+  }, [router]);
 
   const fetchMatches = async () => {
     let query = supabase
@@ -166,6 +188,14 @@ export default function AdminMatches() {
   //   }
   // };
 
+  if (!isAuthorized) {
+    return (
+      <div className="bg-black h-screen w-screen flex items-center justify-center">
+        <p>Checking authorization and Loading data...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-black min-h-screen text-white p-8">
       <Head>
@@ -289,8 +319,13 @@ export default function AdminMatches() {
 
       <div className="mt-8 text-center">
         <Link href="/">
+          <button className="text-sm px-6 py-2 mr-5 border rounded-full hover:bg-orange-200 hover:text-black transition duration-300">
+            Homepage
+          </button>
+        </Link>
+        <Link href="/236/dashboard">
           <button className="text-sm px-6 py-2 border rounded-full hover:bg-orange-200 hover:text-black transition duration-300">
-            Back to Home
+            Dashboard
           </button>
         </Link>
       </div>

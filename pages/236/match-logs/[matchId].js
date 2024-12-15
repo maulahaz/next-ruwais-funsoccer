@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { supabase } from "../../../lib/supabase";
 
 export default function MatchLogs() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const router = useRouter();
   const { matchId } = router.query;
 
@@ -21,11 +22,40 @@ export default function MatchLogs() {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("");
 
+  // useEffect(() => {
+  //   if (matchId) {
+  //     fetchLogs();
+  //     fetchPlayers();
+  //   }
+  // }, [matchId]);
+
   useEffect(() => {
-    if (matchId) {
-      fetchLogs();
-      fetchPlayers();
-    }
+    const checkAuthorization = () => {
+      const loggedInData = localStorage.getItem("loggedInData");
+      let userData = null;
+
+      if (loggedInData) {
+        try {
+          userData = JSON.parse(loggedInData);
+        } catch (error) {
+          console.error("Error parsing loggedInData:", error);
+        }
+      }
+
+      console.log("Loggedin Data: ", userData);
+      if (!userData) {
+        router.push({
+          pathname: "/236/auth/login",
+          query: { error: "You do not have permission to access the page" },
+        });
+      } else {
+        setIsAuthorized(true);
+        fetchLogs();
+        fetchPlayers();
+      }
+    };
+
+    checkAuthorization();
   }, [matchId]);
 
   const fetchLogs = async () => {
@@ -117,6 +147,14 @@ export default function MatchLogs() {
     }
   };
 
+  if (!isAuthorized) {
+    return (
+      <div className="bg-black h-screen w-screen flex items-center justify-center">
+        <p>Checking authorization and Loading data...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-black min-h-screen text-white p-8">
       <Head>
@@ -169,7 +207,7 @@ export default function MatchLogs() {
                     {dayjs(log.log_datetime).format("DD-MMM-YY HH:mm:ss")}
                   </td>
                   <td className="border border-gray-800 p-2">
-                    {log.player.name+"-"+log.player.alias}
+                    {log.player.name + "-" + log.player.alias}
                   </td>
                   <td className="border border-gray-800 p-2 text-center">
                     <button
@@ -193,7 +231,7 @@ export default function MatchLogs() {
       </div>
 
       <div className="mt-8 text-center">
-        <Link href="/236/matches">
+        <Link href="/236/manage/matches">
           <button className="text-sm px-6 py-2 border rounded-full hover:bg-orange-200 hover:text-black transition duration-300">
             Back to Matches
           </button>
