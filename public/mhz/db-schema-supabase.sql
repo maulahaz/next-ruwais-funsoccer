@@ -53,6 +53,16 @@ CREATE TABLE match_logs (
     player_id INT REFERENCES players(id) ON DELETE SET NULL,  --[Player during log]
 );
 
+CREATE TABLE match_files (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(100),  --Title of file
+    file_url VARCHAR(255),  --File can be image or video
+    file_type VARCHAR(50),  -- 'image' or 'video'
+    match_id INT REFERENCES matches(id) ON DELETE SET NULL,
+    player_id INT REFERENCES players(id) ON DELETE SET NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
 --Sample data players:
 INSERT INTO players (id,name, alias, origin, photo, phone, address, team_id, prev_club, jersey_num, goals_scored, yellow_card, red_card, match_id)
 VALUES
