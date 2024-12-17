@@ -264,6 +264,7 @@ export default function MatchLogs() {
                     <option value="Red Card">Red Card</option>
                     <option value="Own Goal">Own Goal</option>
                     <option value="Penalty">Penalty</option>
+                    <option value="Clean Sheet">Clean Sheet</option>
                   </select>
                 </div>
                 <div className="mb-4">
@@ -290,7 +291,7 @@ export default function MatchLogs() {
                     required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   >
-                    <option value="">Select Player</option>
+                    <option value="">Select...</option>
                     {players.map((player) => (
                       <option key={player.id} value={player.id}>
                         {player.name + "-" + player.alias}
