@@ -28,18 +28,41 @@ export default function PlayerDetail() {
     if (playerError) {
       console.error("Error fetching player details:", playerError);
     } else {
+      // console.log("Player Data :", playerData);
       setPlayer(playerData);
       setCurrentImage(
         playerData.photo ? `/players/${playerData.id}.jpg` : `/players/user.jpg`
       );
     }
+
+    //--Fetch player statistics
+    const { data: statsData, error: statsError } = await supabase
+      .from("match_logs")
+      .select("log_name")
+      .eq("player_id", id);
+
+    if (statsError) {
+      console.error("Error fetching player statistics:", statsError);
+    } else {
+      const stats = {
+        goals: statsData.filter((log) => log.log_name === "Goal").length,
+        yellowCards: statsData.filter((log) => log.log_name === "Yellow Card")
+          .length,
+        redCards: statsData.filter((log) => log.log_name === "Red Card").length,
+        cleanSheets: statsData.filter((log) => log.log_name === "Clean Sheet")
+          .length,
+      };
+      setPlayer((prevPlayer) => ({ ...prevPlayer, ...stats }));
+    }
+
+    //--Fetch player images
     const { data: imageData, error: imageError } = await supabase
       .from("match_files")
       .select("*")
       .eq("player_id", id)
       .limit(5);
 
-    console.log("Player Images :", imageData);
+    // console.log("Player Images :", imageData);
 
     if (imageError) {
       console.error("Error fetching player images:", imageError);
@@ -50,22 +73,34 @@ export default function PlayerDetail() {
     setLoading(false);
   };
 
+  const handleEdit = () => {
+    alert("You don't have authority to edit");
+  };
+
   if (loading) {
-    return <div className="text-center mt-8">Loading...</div>;
+    return (
+      <div className="bg-black h-screen w-screen flex items-center justify-center">
+        <p>Loading the data...</p>
+      </div>
+    );
   }
 
   if (!player) {
-    return <div className="text-center mt-8">Player not found</div>;
+    return (
+      <div className="bg-black h-screen w-screen flex items-center justify-center">
+        <p>Player not found</p>
+      </div>
+    );
   }
 
   return (
     <div className="bg-black min-h-screen text-white">
       <Head>
-        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} - ${player.name}`}</title>
+        <title>{`${process.env.NEXT_PUBLIC_SITE_NAME} - ${player.alias}`}</title>
       </Head>
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-center">{player.name}</h1>
+        <h1 className="text-4xl font-bold mb-4 text-center">{player.name}</h1>
 
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/3">
@@ -117,33 +152,33 @@ export default function PlayerDetail() {
 
           <div className="md:w-2/3">
             <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-              <h2 className="text-2xl font-semibold mb-4">
-                {player.alias || player.name}
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-2">
                 <div>
                   <p>
-                    <strong>Team:</strong> {player.team.team_alias}
+                    Alias: <strong>{player.alias}</strong>
                   </p>
                   <p>
-                    <strong>Position:</strong> {player.position || "N/A"}
+                    Team: <strong>{player.team.team_alias}</strong>
                   </p>
                   <p>
-                    <strong>Jersey Number:</strong> {player.jersey_num || "N/A"}
+                    Position: <strong> {player.position || "N/A"}</strong>
                   </p>
                   <p>
-                    <strong>Origin:</strong> {player.origin || "N/A"}
+                    Jersey Number: <strong>{player.jersey_num || "N/A"}</strong>
                   </p>
                 </div>
                 <div>
                   <p>
-                    <strong>Previous Club:</strong> {player.prev_club || "N/A"}
+                    Origin: <strong>{player.origin || "N/A"}</strong>
                   </p>
                   <p>
-                    <strong>Address:</strong> {player.address || "N/A"}
+                    Previous Club: <strong>{player.prev_club || "N/A"}</strong>
                   </p>
                   <p>
-                    <strong>Phone:</strong> {player.phone || "N/A"}
+                    Address: <strong>{player.address || "N/A"}</strong>
+                  </p>
+                  <p>
+                    Phone: <strong>{player.phone || "N/A"}</strong>
                   </p>
                 </div>
               </div>
@@ -151,26 +186,40 @@ export default function PlayerDetail() {
 
             <div className="mt-8 bg-gray-800 rounded-lg p-6 shadow-lg">
               <h3 className="text-xl font-semibold mb-4">Statistics</h3>
-              <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="grid md:grid-cols-4 grid-cols-2 gap-2 text-center">
                 <div>
-                  <p className="text-3xl font-bold">
-                    {player.goals_scored || 0}
-                  </p>
+                  <p className="text-3xl font-bold">{player.goals || 0}</p>
                   <p>Goals</p>
                 </div>
                 <div>
                   <p className="text-3xl font-bold">
-                    {player.yellow_card || 0}
+                    {player.yellowCards || 0}
                   </p>
                   <p>Yellow Cards</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold">{player.red_card || 0}</p>
+                  <p className="text-3xl font-bold">{player.redCards || 0}</p>
                   <p>Red Cards</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold">
+                    {player.cleanSheets || 0}
+                  </p>
+                  <p>Clean sheets</p>
                 </div>
               </div>
               <br></br>
-              <p className="tx-sm italic">Note: This data still not link properly</p>
+              <p className="tx-sm italic">
+                Note: This data still not link properly
+              </p>
+            </div>
+            <div className="pt-4 text-right">
+              <button
+                onClick={handleEdit}
+                className="bg-yellow-500 text-black py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:shadow-outline"
+              >
+                Edit
+              </button>
             </div>
           </div>
         </div>
