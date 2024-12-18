@@ -11,12 +11,21 @@ export default function PlayerDetail() {
   const [currentImage, setCurrentImage] = useState("");
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     if (id) {
       fetchPlayerDetails();
+      checkLoggedInUser();
     }
   }, [id]);
+
+  const checkLoggedInUser = () => {
+    const loggedInData = localStorage.getItem("loggedInData");
+    if (loggedInData) {
+      setUser(JSON.parse(loggedInData));
+    }
+  };
 
   const fetchPlayerDetails = async () => {
     const { data: playerData, error: playerError } = await supabase
@@ -213,14 +222,16 @@ export default function PlayerDetail() {
                 Note: This data still not link properly
               </p>
             </div>
-            <div className="pt-4 text-right">
-              <button
-                onClick={handleEdit}
-                className="bg-yellow-500 text-black py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:shadow-outline"
-              >
-                Edit
-              </button>
-            </div>
+            {(user && user.id) === parseInt(id) && (
+              <div className="pt-4 text-right">
+                <button
+                  onClick={handleEdit}
+                  className="bg-yellow-500 text-black py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:shadow-outline"
+                >
+                  Edit
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
