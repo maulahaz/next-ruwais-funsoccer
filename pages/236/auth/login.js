@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../../../lib/supabase";
-import crypto from "crypto";
 import Head from "next/head";
+import { handleLogin } from "../../../lib/auth";
+// import { supabase } from "../../../lib/supabase";
+// import crypto from "crypto";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -10,53 +11,19 @@ export default function Login() {
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
-    try {
-      const { data, error } = await supabase
-        .from("players")
-        .select("email, passkey, auth_level")
-        .eq("email", email)
-        .single(); //<-- (Column and data "email" must be Unique).
-
-      if (error) throw error;
-
-      console.log("Input Password:", password);
-      console.log("DB Password:", data.passkey);
-      console.log("Data:", data);
-
-      const hashedPassword = crypto
-        .createHash("md5")
-        .update(password)
-        .digest("hex");
-
-      console.log("Hashed Password:", hashedPassword);
-
-      if (data && data.passkey === hashedPassword) {
-        if (data.auth_level === 3) {
-          const storedData = {
-            email: data.email,
-            auth_level: data.auth_level,
-          };
-          localStorage.setItem("loggedInData", JSON.stringify(storedData));
-          console.log("Login successful, redirecting to dashboard");
-          router.push("/236/dashboard");
-        } else {
-          console.log("Auth Level not 3:", data.auth_level);
-          setError("You do not have permission to access the dashboard.");
-        }
-      } else {
-        console.log("No user or Password mismatch");
-        setError("Invalid email or password");
-      }
-    } catch (error) {
-      setError("Invalid email or password");
-      //   setError("An error occurred. Please try again.");
-      console.error("Error:", error);
+    // await handleLoginAdmin(email, password, router, setError);
+    const loggedinData = await handleLogin(email, password, setError);
+    // console.log("Log data: ", loggedinData);
+    if (loggedinData.auth_level >= 3) {
+      router.push("/236/dashboard");
+    } else {
+      setError("You do not have permission to access the dashboard.");
     }
   };
+
   return (
     <>
       <Head>
@@ -65,7 +32,7 @@ export default function Login() {
       <div className="bg-black min-h-screen flex flex-col items-center justify-center text-white p-4">
         <div className="w-full max-w-md">
           <h1 className="text-4xl font-bold mb-8 text-center">Login</h1>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={onSubmit} className="space-y-6">
             <div>
               <label
                 htmlFor="email-address"

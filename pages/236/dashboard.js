@@ -21,8 +21,7 @@ export default function Dashboard() {
           console.error("Error parsing loggedInData:", error);
         }
       }
-
-      console.log("Loggedin Data: ", userData);
+      
       if (!userData) {
         router.push({
           pathname: "/236/auth/login",
