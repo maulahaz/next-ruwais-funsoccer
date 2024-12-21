@@ -16,26 +16,21 @@ const getPlayer = async (req, res) => {
 
 //-- UPDATE Player
 const updatePlayer = async (req, res) => {
-    // return res.status(500).json(req.body);
   try {
-    const { id } = req.query;
+    const idx = req.query;
+    const id = parseInt(idx.id);
     const updatedData = req.body;
-    // console.log("Updating player with ID:", id);
-    // console.log("Updated data:", updatedData);
 
     const { data, error } = await supabase
       .from("players")
-      .update(updatedData)
+      .update({ address: updatedData.address, phone: updatedData.phone })
       .eq("id", id)
       .single();
 
     if (error) return res.status(500).json({ error: error.message });
 
-    if (!data) {
-      return res.status(404).json({ error: "Player not found or not updated" });
-    }
+    return res.status(200).json({ message: "Update Success" });
 
-    return res.status(200).json(data);
   } catch (error) {
     console.error("Server error:", error);
     res.status(500).json({

@@ -32,11 +32,6 @@ export default function AdminMatches() {
   const [alertType, setAlertType] = useState("");
   const itemsPerPage = 10;
 
-  // useEffect(() => {
-  //   fetchMatches();
-  //   fetchTeams();
-  // }, [currentPage, searchTerm]);
-
   useEffect(() => {
     const checkAuthorization = () => {
       const loggedInData = localStorage.getItem("loggedInData");
@@ -53,7 +48,7 @@ export default function AdminMatches() {
     };
 
     checkAuthorization();
-  }, [router]);
+  }, [router, currentPage, searchTerm]);
 
   const fetchMatches = async () => {
     let query = supabase
@@ -308,9 +303,8 @@ export default function AdminMatches() {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`px-3 py-1 rounded ${
-              currentPage === page ? "bg-blue-500 text-white" : "bg-gray-700"
-            }`}
+            className={`px-3 py-1 rounded ${currentPage === page ? "bg-blue-500 text-white" : "bg-gray-700"
+              }`}
           >
             {page}
           </button>

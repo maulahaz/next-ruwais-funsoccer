@@ -12,9 +12,9 @@ export default function PlayerDetail() {
   const [currentImage, setCurrentImage] = useState("");
   const [player, setPlayer] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingPlayer, setEditingPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  // const [editingPlayer, setEditingPlayer] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -85,39 +85,30 @@ export default function PlayerDetail() {
 
   //--When EDIT button is clicked:
   const handleEdit = () => {
-    // alert(`You don't have authority to edit. ID is ${id}`);
-    console.log("DtPlayer :", player);
     // setEditingPlayer(player);
-    console.log("editingPlayer ", player);
     setIsEditModalOpen(true);
   };
 
   const handleSubmitEdit = async (updatedPlayer) => {
-    console.log("Dt New :", updatedPlayer);
-    console.log("URL :", `/api/player/${player.id}`);
-    // try {
-      const response = await fetch(`/api/players/${player.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedPlayer),
-      });
-      console.log("Responnya:", response);
-      console.log("Status:", response.statusText);
+    const response = await fetch(`/api/players/${player.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedPlayer),
+    });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error("Failed to update player. Error: ", errorData);
-      }
+    const responseData = await response.json();
+    if (!response.ok) {
+      const errorData = responseData;
+      console.log("error-Data:", errorData);
+    }
 
+    if (response.ok) {
       //--Update the players state with the edited player
-      const updatedData = await response.json();
       setPlayer(updatedPlayer);
       setIsEditModalOpen(false);
-    // } catch (error) {
-    //   console.error("Error updating player:", error);
-    // }
+    }
   };
 
   if (loading) {
@@ -252,9 +243,9 @@ export default function PlayerDetail() {
                 </div>
               </div>
               <br></br>
-              <p className="tx-sm italic">
+              {/* <p className="tx-sm italic">
                 Note: This data still not link properly
-              </p>
+              </p> */}
             </div>
             {(user && user.id) === parseInt(id) && (
               <div className="pt-4 text-right">
