@@ -12,6 +12,9 @@ NextJS: Build Football Match Update and Statistic
 - DB: Supabase
 - API: NA
 
+## Login:
+- gibol_xx@ruwaiskita.online
+
 ## References:
 - https://www.youtube.com/watch?v=dgaAh0Dv0kc
 - https://www.youtube.com/watch?v=QXxy8Uv1LnQ&t=195s
@@ -96,3 +99,5 @@ if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
 
     Or you can push the schema changes
     $ npx prisma db push
+
+

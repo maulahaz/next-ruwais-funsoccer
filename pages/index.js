@@ -8,8 +8,8 @@ import isTomorrow from "dayjs/plugin/isTomorrow";
 import Link from "next/link";
 import { capitalize } from "../src/utils.ts";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { supabase } from "../lib/supabase";
-import { handleLogin } from "../lib/auth.js";
+// import { supabase } from "../lib/supabase";
+import { goLogin } from "../lib/auth.js";
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
@@ -50,8 +50,8 @@ export default function Home() {
   const onSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    const loggedinData = await handleLogin(email, password, setError);
-    console.log("Data ", loggedinData);
+    const loggedinData = await goLogin(email, password, setError);
+    // console.log("Data ", loggedinData);
     if (loggedinData) {
       if (loggedinData.auth_level >= 3) {
         router.push("/236/dashboard");
@@ -61,34 +61,6 @@ export default function Home() {
       setEmail("");
       setPassword("");
     }
-
-    // try {
-    //   const { data, error } = await supabase
-    //     .from("players")
-    //     .select("name, email, auth_level")
-    //     .eq("email", loginEmail)
-    //     .eq("passkey", loginPassword)
-    //     .single();
-
-    //   if (error) throw error;
-
-    //   if (data) {
-    //     const storedData = {
-    //       email: data.email,
-    //       auth_level: data.auth_level,
-    //     };
-    //     localStorage.setItem("loggedInData", JSON.stringify(storedData));
-    //     setUser(storedData);
-    //     setIsLoginModalOpen(false);
-    //     setEmail("");
-    //     setPassword("");
-    //   } else {
-    //     alert("Invalid credentials");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during login:", error);
-    //   alert("An error occurred during login");
-    // }
   };
 
   const handleLogout = () => {
@@ -136,14 +108,6 @@ export default function Home() {
       (a, b) =>
         dayjs(a.match_datetime).valueOf() - dayjs(b.match_datetime).valueOf()
     )[0];
-
-  // if (!matches.length) {
-  //   return (
-  //     <div className="bg-black h-screen w-screen flex items-center justify-center">
-  //       <p>Loading the data...</p>
-  //     </div>
-  //   );
-  // }
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabase";
 import Head from "next/head";
 import Link from "next/link";
+import EditPlayerModal from "../../components/players/EditPlayerModal";
 
 export default function PlayerDetail() {
   const router = useRouter();
@@ -10,6 +11,8 @@ export default function PlayerDetail() {
   const [playerImages, setPlayerImages] = useState([]);
   const [currentImage, setCurrentImage] = useState("");
   const [player, setPlayer] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingPlayer, setEditingPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
@@ -71,8 +74,6 @@ export default function PlayerDetail() {
       .eq("player_id", id)
       .limit(5);
 
-    // console.log("Player Images :", imageData);
-
     if (imageError) {
       console.error("Error fetching player images:", imageError);
     } else {
@@ -82,8 +83,41 @@ export default function PlayerDetail() {
     setLoading(false);
   };
 
+  //--When EDIT button is clicked:
   const handleEdit = () => {
-    alert("You don't have authority to edit");
+    // alert(`You don't have authority to edit. ID is ${id}`);
+    console.log("DtPlayer :", player);
+    // setEditingPlayer(player);
+    console.log("editingPlayer ", player);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSubmitEdit = async (updatedPlayer) => {
+    console.log("Dt New :", updatedPlayer);
+    console.log("URL :", `/api/player/${player.id}`);
+    // try {
+      const response = await fetch(`/api/players/${player.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedPlayer),
+      });
+      console.log("Responnya:", response);
+      console.log("Status:", response.statusText);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error("Failed to update player. Error: ", errorData);
+      }
+
+      //--Update the players state with the edited player
+      const updatedData = await response.json();
+      setPlayer(updatedPlayer);
+      setIsEditModalOpen(false);
+    // } catch (error) {
+    //   console.error("Error updating player:", error);
+    // }
   };
 
   if (loading) {
@@ -234,6 +268,13 @@ export default function PlayerDetail() {
             )}
           </div>
         </div>
+        {/* Modal */}
+        <EditPlayerModal
+          initData={player}
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          onSubmit={handleSubmitEdit} //handleSubmitEdit
+        />
 
         <div className="mt-8 text-center">
           <Link href="/players">

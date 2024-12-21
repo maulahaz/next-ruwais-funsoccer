@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import Head from "next/head";
 import Link from "next/link";
+import { FaHome } from "react-icons/fa";
 
 export default function Players() {
   const [players, setPlayers] = useState([]);
@@ -90,7 +91,14 @@ export default function Players() {
         <h1 className="text-4xl font-bold mb-8 text-center">Players</h1>
 
         <div className="flex flex-col mb-4">
-          <h3 className="text-lg mb-2 mr-4">Filter by name or alias:</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg mb-2 mr-4">Filter by name or alias:</h3>
+            <Link href="/">
+              <button className="mr-6">
+                <FaHome size={32} />
+              </button>
+            </Link>
+          </div>
           <div className="flex">
             <input
               id="searchInput"
