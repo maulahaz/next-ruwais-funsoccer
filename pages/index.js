@@ -379,7 +379,7 @@ export default function Home() {
                     <img
                       src={
                         process.env.NEXT_PUBLIC_BASE_URL +
-                        `flags/${nextMatch.home_team.name}.png`
+                        `/flags/${nextMatch.home_team.name}.png`
                       }
                       className="w-28 object-cover"
                       alt={nextMatch.home_team}
@@ -400,7 +400,7 @@ export default function Home() {
                     <img
                       src={
                         process.env.NEXT_PUBLIC_BASE_URL +
-                        `flags/${nextMatch.away_team.name}.png`
+                        `/flags/${nextMatch.away_team.name}.png`
                       }
                       className="w-28 object-cover"
                       alt={nextMatch.away_team}

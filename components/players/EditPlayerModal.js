@@ -69,8 +69,8 @@ export default function EditPlayerModal({
           <div>
             <label>Jersey Number:</label>
             <input
-              name="jersey_number"
-              value={formData.jersey_number || ""}
+              name="jersey_num"
+              value={formData.jersey_num || ""}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
