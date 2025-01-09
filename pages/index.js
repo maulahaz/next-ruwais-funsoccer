@@ -279,6 +279,16 @@ export default function Home() {
                   </h3>
                 </div>
               </div>
+              <div className="mt-3">
+                <p className="text-yellow-600 text-xs">
+                  Home Team Goals:&nbsp;
+                  {latestMatch.home_team_goals_by ?? "-"}
+                </p>
+                <p className="text-yellow-600 text-xs">
+                  Away Team Goals:&nbsp;
+                  {latestMatch.away_team_goals_by ?? "-"}
+                </p>
+              </div>
             </div>
           </div>
         ) : (

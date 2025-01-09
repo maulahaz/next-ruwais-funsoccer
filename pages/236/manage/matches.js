@@ -21,6 +21,8 @@ export default function AdminMatches() {
     away_team_id: "",
     home_team_goals: 0,
     away_team_goals: 0,
+    home_team_goals_by: "",
+    away_team_goals_by: "",
     status: "Future",
   });
   const [editingId, setEditingId] = useState(null);
@@ -99,6 +101,8 @@ export default function AdminMatches() {
       away_team_id: "",
       home_team_goals: 0,
       away_team_goals: 0,
+      home_team_goals_by: "",
+      away_team_goals_by: "",
       status: "Future",
     });
     setShowModal(true);
@@ -147,6 +151,8 @@ export default function AdminMatches() {
         away_team_id: "",
         home_team_goals: 0,
         away_team_goals: 0,
+        home_team_goals_by: "",
+        away_team_goals_by: "",
         status: "Future",
       });
       setShowModal(false);
@@ -169,6 +175,8 @@ export default function AdminMatches() {
       away_team_id: match.away_team_id,
       home_team_goals: match.home_team_goals,
       away_team_goals: match.away_team_goals,
+      home_team_goals_by: match.home_team_goals_by,
+      away_team_goals_by: match.away_team_goals_by,
       status: match.status,
     });
     setEditingId(match.id);
@@ -244,6 +252,8 @@ export default function AdminMatches() {
               <th className="border border-gray-800 p-2">Away Team</th>
               <th className="border border-gray-800 p-2">Score</th>
               <th className="border border-gray-800 p-2">Status</th>
+              <th className="border border-gray-800 p-2">Home Goals By</th>
+              <th className="border border-gray-800 p-2">Away Goals By</th>
               <th className="border border-gray-800 p-2">Actions</th>
             </tr>
           </thead>
@@ -271,6 +281,12 @@ export default function AdminMatches() {
                 </td>
                 <td className="border border-gray-800 p-2">
                   {capitalize(match.status)}
+                </td>
+                <td className="border border-gray-800 p-2">
+                  {capitalize(match.home_team_goals_by)}
+                </td>
+                <td className="border border-gray-800 p-2">
+                  {capitalize(match.away_team_goals_by)}
                 </td>
                 <td className="border border-gray-800 p-2 mr-2 text-center">
                   <button
@@ -399,6 +415,20 @@ export default function AdminMatches() {
                   </div>
                   <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
+                    Home Team Goals By
+                    </label>
+                    <input
+                      type="text"
+                      name="home_team_goals_by"
+                      value={formData.home_team_goals_by}
+                      onChange={handleInputChange}
+                      placeholder="Home Team Goals By"
+                      required
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
                       Away Team
                     </label>
                     <select
@@ -426,6 +456,20 @@ export default function AdminMatches() {
                       value={formData.away_team_goals}
                       onChange={handleInputChange}
                       placeholder="Away Team Goals"
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                    Away Team Goals By
+                    </label>
+                    <input
+                      type="text"
+                      name="away_team_goals_by"
+                      value={formData.away_team_goals_by}
+                      onChange={handleInputChange}
+                      placeholder="Away Team Goals By"
+                      required
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                   </div>

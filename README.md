@@ -12,6 +12,18 @@ NextJS: Build Football Match Update and Statistic
 - DB: Supabase
 - API: NA
 
+## Howto:
+- Clone Repository
+- Goto root folder
+- $ npm install
+- Make new file name it: ".env.local" in root folder
+- Add these to .env.local file:
+    NEXT_PUBLIC_SUPABASE_URL = [fill_with_supabase_URL]
+    NEXT_PUBLIC_SUPABASE_ANON_KEY = [fill_with_supabase_anon_key]
+    NEXT_PUBLIC_BASE_URL = [http://localhost:3000/]
+    NEXT_PUBLIC_IMG_URL = [http://localhost:3000/images/]
+    NEXT_PUBLIC_SITE_NAME = [Ruwais Gibol Online]
+
 ## Login:
 - gibol_xx@ruwaiskita.online
 
@@ -22,6 +34,7 @@ NextJS: Build Football Match Update and Statistic
 
 - Random Images: [https://i.pravatar.cc/200](https://i.pravatar.cc/200)
 - Random Images: [https://picsum.photos/200](https://picsum.photos/200)
+- Remove BG: [https://www.remove.bg/](https://www.remove.bg/)
 - Unsplash Images: https://source.unsplash.com/[IMAGE ID]
 - Color Ref: [Colors](https://coolors.co/palettes/trending)
 - Svg Icon Collection: [SVG Icons](http://svgrepo.com)
@@ -38,7 +51,7 @@ NextJS: Build Football Match Update and Statistic
 <hr>
 
 
-## How To:
+## How To Using Prisma:
 1. Install typescript
 $ npm install typescript --save-dev
 
