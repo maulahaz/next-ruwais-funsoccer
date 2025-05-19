@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { supabase } from "../../../lib/supabase.js";
 import Head from "next/head";
 import { capitalize } from "../../../src/utils.ts";
@@ -283,6 +284,19 @@ export default function AdminPlayers() {
         ))}
       </div>
 
+      <div className="mt-8 text-center">
+        <Link href="/">
+          <button className="text-sm px-6 py-2 mr-5 border rounded-full hover:bg-orange-200 hover:text-black transition duration-300">
+            Homepage
+          </button>
+        </Link>
+        <Link href="/236/dashboard">
+          <button className="text-sm px-6 py-2 border rounded-full hover:bg-orange-200 hover:text-black transition duration-300">
+            Dashboard
+          </button>
+        </Link>
+      </div>
+
       {/* Modal for creating/editing player */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -306,6 +320,44 @@ export default function AdminPlayers() {
                 value={formData.alias}
                 onChange={handleInputChange}
                 placeholder="Alias"
+                className="w-full p-2 mb-2 border rounded text-black"
+              />
+              <select
+                name="team_id"
+                value={formData.team_id}
+                onChange={handleInputChange}
+                className="w-full p-2 mb-2 border rounded text-black"
+                required
+              >
+                <option value="">Select Team</option>
+                {teams.map((team) => (
+                  <option key={team.id} value={team.id}>
+                    {team.team_alias}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                name="jersey_num"
+                value={formData.jersey_num}
+                onChange={handleInputChange}
+                placeholder="Jersey #"
+                className="w-full p-2 mb-2 border rounded text-black"
+              />
+              <input
+                type="text"
+                name="position"
+                value={formData.position}
+                onChange={handleInputChange}
+                placeholder="Position"
+                className="w-full p-2 mb-2 border rounded text-black"
+              />
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                placeholder="Phone"
                 className="w-full p-2 mb-2 border rounded text-black"
               />
               <div className="flex items-center justify-center mt-4 gap-4">

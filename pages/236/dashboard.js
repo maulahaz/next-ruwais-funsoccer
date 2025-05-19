@@ -111,7 +111,6 @@ export default function Dashboard() {
             <p className="text-xl mb-4">
               Welcome, <span className="font-bold">{user.name}</span>!
             </p>
-            <p className="mb-6">You have successfully logged in.</p>
             <div className="space-y-4">
               {/* <Link href="/236/manage/teams">
                 <a className="block w-full text-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-black bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">

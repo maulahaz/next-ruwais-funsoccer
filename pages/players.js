@@ -94,16 +94,16 @@ export default function Players() {
           <div className="flex items-center justify-between">
             <h3 className="text-lg mb-2 mr-4">Filter by name or alias:</h3>
             <div>
-            <Link href="/">
-              <button className="mr-6 text-blue-600">
-                <FaUserPlus size={32} />
-              </button>
-            </Link>
-            <Link href="/">
-              <button className="mr-6">
-                <FaHome size={32} />
-              </button>
-            </Link>
+              {/* <Link href="/">
+                <button className="mr-6 text-blue-600">
+                  <FaUserPlus size={32} />
+                </button>
+              </Link> */}
+              <Link href="/">
+                <button className="mr-6">
+                  <FaHome size={32} />
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex">
@@ -219,6 +219,7 @@ export default function Players() {
             </button>
           </Link>
         </div>
+        
       </div>
     </div>
   );
