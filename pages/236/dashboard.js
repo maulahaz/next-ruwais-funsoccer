@@ -21,7 +21,7 @@ export default function Dashboard() {
           console.error("Error parsing loggedInData:", error);
         }
       }
-      
+
       if (!userData) {
         router.push({
           pathname: "/236/auth/login",
@@ -126,6 +126,11 @@ export default function Dashboard() {
               <Link href="/236/manage/matches">
                 <a className="block w-full text-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-black bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
                   Manage Matches
+                </a>
+              </Link>
+              <Link href="/236/manage/players">
+                <a className="block w-full text-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-black bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                  Manage Players
                 </a>
               </Link>
               <Link href="/">

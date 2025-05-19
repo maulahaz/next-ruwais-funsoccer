@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import Head from "next/head";
 import Link from "next/link";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUserPlus } from "react-icons/fa";
 
 export default function Players() {
   const [players, setPlayers] = useState([]);
@@ -93,11 +93,18 @@ export default function Players() {
         <div className="flex flex-col mb-4">
           <div className="flex items-center justify-between">
             <h3 className="text-lg mb-2 mr-4">Filter by name or alias:</h3>
+            <div>
+            <Link href="/">
+              <button className="mr-6 text-blue-600">
+                <FaUserPlus size={32} />
+              </button>
+            </Link>
             <Link href="/">
               <button className="mr-6">
                 <FaHome size={32} />
               </button>
             </Link>
+            </div>
           </div>
           <div className="flex">
             <input
