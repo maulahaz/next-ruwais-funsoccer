@@ -4,6 +4,7 @@ import { supabase } from "../../lib/supabase";
 import Head from "next/head";
 import Link from "next/link";
 import EditPlayerModal from "../../components/players/EditPlayerModal";
+import FileUploadPlayerProfileModal from "../../components/FileUploadPlayerProfileModal";
 
 export default function PlayerDetail() {
   const router = useRouter();
@@ -152,12 +153,14 @@ export default function PlayerDetail() {
                 alt={player.name}
                 className="w-full h-full object-cover"
               />
-              <button
-                onClick={handleEditPicture}
-                className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline text-sm"
-              >
-                Edit Picture
-              </button>
+              {(user && user.id) === parseInt(id) && (
+                <button
+                  onClick={handleEditPicture}
+                  className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline text-sm"
+                >
+                  Edit Picture
+                </button>
+              )}
             </div>
             <div className="flex justify-center space-x-2">
               <div
@@ -312,6 +315,14 @@ export default function PlayerDetail() {
         {/* EOF-Modal EditPlayer */}
         {/* BOF-Modal EditPicturePlayer */}
         {isEditPictureModalOpen && (
+          <FileUploadPlayerProfileModal
+            initData={playerImages}
+            isOpen={isEditPictureModalOpen}
+            onClose={() => setIsEditPictureModalOpen(false)}
+            onSubmit={handleEditPicture}
+          />
+        )}
+        {/* {isEditPictureModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-10 overflow-y-auto">
             <div className="w-full max-w-md bg-gray-900 p-6 rounded-lg max-h-[90vh] overflow-y-auto">
               <h2 className="text-2xl font-bold mb-4 text-white">
@@ -366,7 +377,7 @@ export default function PlayerDetail() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
         {/* EOF-Modal EditPicturePlayer */}
       </div>
     </div>

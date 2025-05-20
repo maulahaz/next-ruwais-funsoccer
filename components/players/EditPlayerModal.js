@@ -35,7 +35,7 @@ export default function EditPlayerModal({
       ariaHideApp={false}
     >
       <div className="w-full max-w-md bg-gray-900 p-6 rounded-lg max-h-[90vh] overflow-y-auto">
-        <h2 className="text-2xl font-bold mb-4 text-white">
+        <h2 className="text-2xl mb-4 text-white text-center">
           {initData ? "Edit Data" : "Create Data"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
